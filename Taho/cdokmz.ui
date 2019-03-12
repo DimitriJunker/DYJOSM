@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CDoKmz</class>
+ <widget class="QDialog" name="CDoKmz">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>559</width>
+    <height>418</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>KMZ erstellen</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout_4">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="title">
+        <string>KML-Files</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QListWidget" name="lw_kml"/>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <property name="spacing">
+           <number>12</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="pb_addKML">
+            <property name="text">
+             <string>KML hinzufügen</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pb_del">
+            <property name="text">
+             <string>löschen</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pb_delAll">
+            <property name="text">
+             <string>alle löschen</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="title">
+        <string>Ein KMZ-File pro</string>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QRadioButton" name="rb_proKml">
+          <property name="text">
+           <string>KML-File</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="rb_proZoom">
+          <property name="text">
+           <string>Zoom-Level</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QRadioButton" name="rb_proAll">
+          <property name="text">
+           <string>gesamt</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_3">
+       <property name="title">
+        <string>Ausgabe File(s) (ggf. wird der Zoom-level angehängt)</string>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QLabel" name="la_out">
+          <property name="text">
+           <string notr="true">TextLabel</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pb_out">
+          <property name="maximumSize">
+           <size>
+            <width>50</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string notr="true">...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>CDoKmz</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>460</x>
+     <y>244</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>CDoKmz</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>486</x>
+     <y>250</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_addKML</sender>
+   <signal>clicked()</signal>
+   <receiver>CDoKmz</receiver>
+   <slot>OnAddKml()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>92</x>
+     <y>270</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>523</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_del</sender>
+   <signal>clicked()</signal>
+   <receiver>CDoKmz</receiver>
+   <slot>OnDel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>216</x>
+     <y>274</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>520</x>
+     <y>294</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_delAll</sender>
+   <signal>clicked()</signal>
+   <receiver>CDoKmz</receiver>
+   <slot>OnDelall()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>339</x>
+     <y>272</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>496</x>
+     <y>290</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_out</sender>
+   <signal>clicked()</signal>
+   <receiver>CDoKmz</receiver>
+   <slot>OnFsKmz()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>419</x>
+     <y>382</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>541</x>
+     <y>377</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>CDoKmz</receiver>
+   <slot>OnOk()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>514</x>
+     <y>19</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>553</x>
+     <y>22</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rb_proKml</sender>
+   <signal>clicked()</signal>
+   <receiver>CDoKmz</receiver>
+   <slot>OnChgNumber()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>32</x>
+     <y>330</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>496</x>
+     <y>302</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rb_proZoom</sender>
+   <signal>clicked()</signal>
+   <receiver>CDoKmz</receiver>
+   <slot>OnChgNumber()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>212</x>
+     <y>328</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>524</x>
+     <y>320</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rb_proAll</sender>
+   <signal>clicked()</signal>
+   <receiver>CDoKmz</receiver>
+   <slot>OnChgNumber()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>318</x>
+     <y>327</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>545</x>
+     <y>335</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>OnAddKml()</slot>
+  <slot>OnDel()</slot>
+  <slot>OnDelall()</slot>
+  <slot>OnFsKmz()</slot>
+  <slot>OnOk()</slot>
+  <slot>OnChgNumber()</slot>
+ </slots>
+</ui>

@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/taho.png</file>
+        <file>images/application-exit.png</file>
+        <file>images/document-export.png</file>
+        <file>images/document-open.png</file>
+        <file>images/document-open-recent.png</file>
+        <file>images/document-save.png</file>
+        <file>images/gnome-app-install-star.png</file>
+        <file>images/help-about.png</file>
+        <file>images/help-contents.png</file>
+        <file>images/preferences-desktop.png</file>
+    </qresource>
+</RCC>
