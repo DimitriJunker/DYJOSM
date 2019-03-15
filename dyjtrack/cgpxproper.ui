@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CGpxProper</class>
+ <widget class="QDialog" name="CGpxProper">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>561</width>
+    <height>363</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Track-Eigenschaften</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>50</y>
+     <width>81</width>
+     <height>201</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="l_GpxPath">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>471</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">TextLabel</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>50</y>
+     <width>361</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Name</string>
+   </property>
+   <widget class="QLineEdit" name="le_Name">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>331</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>120</y>
+     <width>361</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Start &amp; Rückwärts</string>
+   </property>
+   <widget class="QDateTimeEdit" name="dte_Start">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>30</y>
+      <width>194</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="cb_Rev">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>30</y>
+      <width>70</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Rückwärts</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>200</y>
+     <width>361</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Farbe</string>
+   </property>
+   <widget class="QPushButton" name="pb_Col">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>20</y>
+      <width>121</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="rb_StdCol">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>82</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Standard</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="rb_FlugCol">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>20</y>
+      <width>82</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Flug</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="rb_col">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>20</y>
+      <width>21</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>:</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="pb_Bck">
+   <property name="geometry">
+    <rect>
+     <x>390</x>
+     <y>120</y>
+     <width>31</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">&lt;&lt;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_Nxt">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>120</y>
+     <width>31</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string notr="true">&gt;&gt;</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>CGpxProper</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>390</x>
+     <y>250</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>272</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>CGpxProper</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>416</x>
+     <y>250</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>272</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_Col</sender>
+   <signal>clicked()</signal>
+   <receiver>CGpxProper</receiver>
+   <slot>OnCol()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>353</x>
+     <y>228</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>79</x>
+     <y>254</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_Bck</sender>
+   <signal>clicked()</signal>
+   <receiver>CGpxProper</receiver>
+   <slot>OnBck()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>412</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>487</x>
+     <y>105</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_Nxt</sender>
+   <signal>clicked()</signal>
+   <receiver>CGpxProper</receiver>
+   <slot>OnNxt()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>461</x>
+     <y>129</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>493</x>
+     <y>152</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rb_col</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>CGpxProper</receiver>
+   <slot>OnDefColChg()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>209</x>
+     <y>227</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>209</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>OnCol()</slot>
+  <slot>OnBck()</slot>
+  <slot>OnNxt()</slot>
+  <slot>OnDefColChg()</slot>
+ </slots>
+</ui>

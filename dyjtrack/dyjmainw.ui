@@ -1,0 +1,1111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>dytMainW</class>
+ <widget class="QMainWindow" name="dytMainW">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>963</width>
+    <height>728</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">DYJ_Track 2.08</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QWidget" name="verticalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>941</width>
+      <height>661</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout" stretch="20,1,4">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1">
+       <property name="spacing">
+        <number>6</number>
+       </property>
+       <item>
+        <widget class="QGroupBox" name="grp_gpxFiles">
+         <property name="title">
+          <string>GPX-Files</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0" rowspan="2">
+           <layout class="QVBoxLayout" name="verticalLayout_5" stretch="4,1">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,2">
+              <item>
+               <widget class="QListWidget" name="filesListWidget">
+                <property name="selectionMode">
+                 <enum>QAbstractItemView::MultiSelection</enum>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <item>
+                 <widget class="QPushButton" name="but_addGpx">
+                  <property name="text">
+                   <string>GPX hinzufügen</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="but_addFly">
+                  <property name="text">
+                   <string>Flug hinzufügen</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="but_delGpx">
+                  <property name="text">
+                   <string>löschen</string>
+                  </property>
+                  <property name="shortcut">
+                   <string>Del</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="but_delAllGpx">
+                  <property name="text">
+                   <string>alle löschen</string>
+                  </property>
+                  <property name="shortcut">
+                   <string>Shift+Del</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="but_chgGpx">
+                  <property name="text">
+                   <string>Ändern</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="but_gpxUp">
+                  <property name="text">
+                   <string>nach oben</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="but_gpxDown">
+                  <property name="text">
+                   <string>nach unten</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_4">
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_4">
+                <item>
+                 <widget class="QCheckBox" name="cbSortByDate">
+                  <property name="text">
+                   <string>nach Datum sortieren</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QGroupBox" name="groupBox_3">
+                  <property name="title">
+                   <string>Zeitzone</string>
+                  </property>
+                  <widget class="QWidget" name="horizontalLayoutWidget">
+                   <property name="geometry">
+                    <rect>
+                     <x>0</x>
+                     <y>10</y>
+                     <width>231</width>
+                     <height>61</height>
+                    </rect>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="2,0,1,4,2">
+                    <item>
+                     <widget class="QLabel" name="label_3">
+                      <property name="text">
+                       <string>UTC</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="cB_TZh"/>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_2">
+                      <property name="text">
+                       <string>h</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="cB_TZmin"/>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label">
+                      <property name="text">
+                       <string>min</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="groupBox_2">
+                <property name="title">
+                 <string>Farben</string>
+                </property>
+                <widget class="QWidget" name="formLayoutWidget">
+                 <property name="geometry">
+                  <rect>
+                   <x>10</x>
+                   <y>10</y>
+                   <width>221</width>
+                   <height>81</height>
+                  </rect>
+                 </property>
+                 <layout class="QFormLayout" name="formLayout">
+                  <item row="1" column="0">
+                   <widget class="QLabel" name="label_5">
+                    <property name="text">
+                     <string>normal</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QLabel" name="label_4">
+                    <property name="text">
+                     <string>Flug</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QPushButton" name="pbColNorm">
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QPushButton" name="pbColFlug">
+                    <property name="text">
+                     <string/>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>496</height>
+          </size>
+         </property>
+         <property name="title">
+          <string>GroupBox</string>
+         </property>
+         <widget class="QWidget" name="verticalLayoutWidget_5">
+          <property name="geometry">
+           <rect>
+            <x>10</x>
+            <y>10</y>
+            <width>451</width>
+            <height>511</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_12" stretch="1,4,10,6">
+           <item>
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_28">
+             <property name="title">
+              <string>Auto</string>
+             </property>
+             <widget class="QWidget" name="layoutWidget_31">
+              <property name="geometry">
+               <rect>
+                <x>40</x>
+                <y>20</y>
+                <width>293</width>
+                <height>45</height>
+               </rect>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_37">
+               <item>
+                <widget class="QCheckBox" name="cb_autoArea">
+                 <property name="text">
+                  <string>Auto</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_66">
+                 <property name="text">
+                  <string>Rand:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="le_rand"/>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_67">
+                 <property name="text">
+                  <string>%</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_29">
+             <property name="title">
+              <string>Manuell</string>
+             </property>
+             <widget class="QWidget" name="layoutWidget_32">
+              <property name="geometry">
+               <rect>
+                <x>140</x>
+                <y>180</y>
+                <width>141</width>
+                <height>22</height>
+               </rect>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_38">
+               <item>
+                <widget class="QLabel" name="label_68">
+                 <property name="text">
+                  <string>Breite2:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="le_Lat2"/>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_69">
+                 <property name="text">
+                  <string>Grad</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="layoutWidget_33">
+              <property name="geometry">
+               <rect>
+                <x>10</x>
+                <y>100</y>
+                <width>141</width>
+                <height>22</height>
+               </rect>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_39">
+               <item>
+                <widget class="QLabel" name="label_70">
+                 <property name="text">
+                  <string>Länge1:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="le_Lon1"/>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_71">
+                 <property name="text">
+                  <string>Grad</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="layoutWidget_34">
+              <property name="geometry">
+               <rect>
+                <x>270</x>
+                <y>100</y>
+                <width>141</width>
+                <height>22</height>
+               </rect>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_40">
+               <item>
+                <widget class="QLabel" name="label_72">
+                 <property name="locale">
+                  <locale language="German" country="Germany"/>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::NoFrame</enum>
+                 </property>
+                 <property name="text">
+                  <string>Länge2:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="le_Lon2"/>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_73">
+                 <property name="text">
+                  <string>Grad</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="layoutWidget_35">
+              <property name="geometry">
+               <rect>
+                <x>140</x>
+                <y>20</y>
+                <width>141</width>
+                <height>22</height>
+               </rect>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_41">
+               <item>
+                <widget class="QLabel" name="label_74">
+                 <property name="text">
+                  <string>Breite1:</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="le_Lat1"/>
+               </item>
+               <item>
+                <widget class="QLabel" name="label_75">
+                 <property name="text">
+                  <string>Grad</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_30">
+             <property name="title">
+              <string>Import/Export</string>
+             </property>
+             <widget class="QGroupBox" name="groupBox_31">
+              <property name="geometry">
+               <rect>
+                <x>20</x>
+                <y>39</y>
+                <width>181</width>
+                <height>71</height>
+               </rect>
+              </property>
+              <property name="title">
+               <string>DYT-File</string>
+              </property>
+              <widget class="QPushButton" name="pushButton_28">
+               <property name="geometry">
+                <rect>
+                 <x>10</x>
+                 <y>30</y>
+                 <width>75</width>
+                 <height>23</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>laden</string>
+               </property>
+              </widget>
+              <widget class="QPushButton" name="pushButton_29">
+               <property name="geometry">
+                <rect>
+                 <x>100</x>
+                 <y>30</y>
+                 <width>75</width>
+                 <height>23</height>
+                </rect>
+               </property>
+               <property name="text">
+                <string>speichern</string>
+               </property>
+              </widget>
+             </widget>
+             <widget class="QPushButton" name="pushButton_30">
+              <property name="geometry">
+               <rect>
+                <x>260</x>
+                <y>70</y>
+                <width>75</width>
+                <height>23</height>
+               </rect>
+              </property>
+              <property name="text">
+               <string>BBox-Tool</string>
+              </property>
+             </widget>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QTabWidget" name="tw_Bereich">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>461</width>
+            <height>501</height>
+           </rect>
+          </property>
+          <property name="currentIndex">
+           <number>1</number>
+          </property>
+          <widget class="QWidget" name="tab">
+           <attribute name="title">
+            <string>normaler Bereich</string>
+           </attribute>
+          </widget>
+          <widget class="QWidget" name="tab_2">
+           <attribute name="title">
+            <string>Übersichtsbereich (nur Filme)</string>
+           </attribute>
+          </widget>
+         </widget>
+         <zorder>tw_Bereich</zorder>
+         <zorder>verticalLayoutWidget_5</zorder>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>1</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="title">
+        <string>Fortschritt</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,1">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,5">
+            <item>
+             <widget class="QLabel" name="txt_act">
+              <property name="text">
+               <string>Aktion:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="tl_action">
+              <property name="text">
+               <string>TextLabel</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QProgressBar" name="progressBar">
+            <property name="value">
+             <number>24</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>963</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuDatei">
+    <property name="title">
+     <string>Datei</string>
+    </property>
+    <addaction name="actionNeues_Projekt"/>
+    <addaction name="actionProjekt_laden"/>
+    <addaction name="actionProjekt_hinzu_laden"/>
+    <addaction name="actionProjekt_speichern"/>
+    <addaction name="actionProjekt_speichern_unter"/>
+    <addaction name="actionProjekt_exportieren"/>
+    <addaction name="separator"/>
+    <addaction name="actionBeenden"/>
+   </widget>
+   <widget class="QMenu" name="menuBearbeiten">
+    <property name="title">
+     <string>Bearbeiten</string>
+    </property>
+    <addaction name="actionHTML_erstellen"/>
+    <addaction name="actionBild_erstellen"/>
+    <addaction name="actionFilm_erzeugen"/>
+    <addaction name="separator"/>
+    <addaction name="actionOptionen"/>
+   </widget>
+   <widget class="QMenu" name="menuHilfe">
+    <property name="title">
+     <string>Hilfe</string>
+    </property>
+    <addaction name="actionHilfe"/>
+    <addaction name="separator"/>
+    <addaction name="actionInfo"/>
+   </widget>
+   <addaction name="menuDatei"/>
+   <addaction name="menuBearbeiten"/>
+   <addaction name="menuHilfe"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionProjekt_laden">
+   <property name="text">
+    <string>Projekt laden</string>
+   </property>
+  </action>
+  <action name="actionProjekt_hinzu_laden">
+   <property name="text">
+    <string>Projekt hinzu laden</string>
+   </property>
+  </action>
+  <action name="actionProjekt_speichern">
+   <property name="text">
+    <string>Projekt speichern</string>
+   </property>
+  </action>
+  <action name="actionProjekt_speichern_unter">
+   <property name="text">
+    <string>Projekt speichern unter</string>
+   </property>
+  </action>
+  <action name="actionProjekt_exportieren">
+   <property name="text">
+    <string>Projekt exportieren</string>
+   </property>
+  </action>
+  <action name="actionBeenden">
+   <property name="text">
+    <string>Beenden</string>
+   </property>
+  </action>
+  <action name="actionHTML_erstellen">
+   <property name="text">
+    <string>HTML erstellen</string>
+   </property>
+  </action>
+  <action name="actionBild_erstellen">
+   <property name="text">
+    <string>Bild erstellen</string>
+   </property>
+  </action>
+  <action name="actionFilm_erzeugen">
+   <property name="text">
+    <string>Film erzeugen</string>
+   </property>
+  </action>
+  <action name="actionOptionen">
+   <property name="text">
+    <string>Optionen</string>
+   </property>
+  </action>
+  <action name="actionHilfe">
+   <property name="text">
+    <string>Hilfe</string>
+   </property>
+  </action>
+  <action name="actionInfo">
+   <property name="text">
+    <string>Info</string>
+   </property>
+  </action>
+  <action name="actionNeues_Projekt">
+   <property name="text">
+    <string>neues Projekt</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>but_addGpx</sender>
+   <signal>clicked()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnAddgpx()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>352</x>
+     <y>99</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>892</x>
+     <y>100</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>filesListWidget</sender>
+   <signal>itemSelectionChanged()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnSelchangeFiles()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>206</x>
+     <y>214</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>207</x>
+     <y>556</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>but_delGpx</sender>
+   <signal>clicked()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>onDel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>371</x>
+     <y>191</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>947</x>
+     <y>188</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>but_delAllGpx</sender>
+   <signal>clicked()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnDelAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>436</x>
+     <y>247</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>949</x>
+     <y>247</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>but_gpxUp</sender>
+   <signal>clicked()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnUp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>441</x>
+     <y>345</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>953</x>
+     <y>352</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>but_gpxDown</sender>
+   <signal>clicked()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnDown()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>432</x>
+     <y>401</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>948</x>
+     <y>401</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbSortByDate</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnSortByDate()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>35</x>
+     <y>455</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>46</x>
+     <y>558</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cB_TZh</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnTZChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>90</x>
+     <y>514</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>92</x>
+     <y>582</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cB_TZmin</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnTZChanged()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>175</x>
+     <y>509</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>186</x>
+     <y>572</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbColNorm</sender>
+   <signal>clicked()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnColN()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>314</x>
+     <y>481</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>316</x>
+     <y>558</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbColFlug</sender>
+   <signal>clicked()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnColF()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>403</x>
+     <y>505</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>400</x>
+     <y>560</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>but_addFly</sender>
+   <signal>clicked()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnFly()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>435</x>
+     <y>143</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>949</x>
+     <y>146</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>but_chgGpx</sender>
+   <signal>clicked()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnChgGpx()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>429</x>
+     <y>300</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>953</x>
+     <y>302</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tw_Bereich</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnSelChgArea()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>914</x>
+     <y>49</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>952</x>
+     <y>50</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>le_rand</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnChgRand()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>694</x>
+     <y>125</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>815</x>
+     <y>39</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cb_autoArea</sender>
+   <signal>clicked()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnChgAutoArea()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>534</x>
+     <y>128</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>529</x>
+     <y>41</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_28</sender>
+   <signal>clicked()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnLoadDyt()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>568</x>
+     <y>499</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>567</x>
+     <y>561</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_29</sender>
+   <signal>clicked()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnSaveDyt()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>657</x>
+     <y>507</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>644</x>
+     <y>557</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_30</sender>
+   <signal>clicked()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnBbox()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>776</x>
+     <y>509</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>777</x>
+     <y>554</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>filesListWidget</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnChgGpx()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>207</x>
+     <y>210</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>950</x>
+     <y>450</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>le_Lon2</sender>
+   <signal>editingFinished()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnManChgArea()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>830</x>
+     <y>295</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>949</x>
+     <y>285</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>le_Lat1</sender>
+   <signal>editingFinished()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnManChgArea()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>726</x>
+     <y>216</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>950</x>
+     <y>224</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>le_Lon1</sender>
+   <signal>editingFinished()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnManChgArea()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>582</x>
+     <y>295</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>952</x>
+     <y>331</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>le_Lat2</sender>
+   <signal>editingFinished()</signal>
+   <receiver>dytMainW</receiver>
+   <slot>OnManChgArea()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>718</x>
+     <y>378</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>947</x>
+     <y>384</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <signal>signalProgVal(int)</signal>
+  <slot>OnAddgpx()</slot>
+  <slot>OnSelchangeFiles()</slot>
+  <slot>onDel()</slot>
+  <slot>slot1()</slot>
+  <slot>OnDelAll()</slot>
+  <slot>OnUp()</slot>
+  <slot>OnDown()</slot>
+  <slot>OnSortByDate()</slot>
+  <slot>OnTZChanged()</slot>
+  <slot>OnColN()</slot>
+  <slot>slot2()</slot>
+  <slot>OnColF()</slot>
+  <slot>OnFly()</slot>
+  <slot>OnChgGpx()</slot>
+  <slot>OnSelChgArea()</slot>
+  <slot>OnChgRand()</slot>
+  <slot>OnChgAutoArea()</slot>
+  <slot>OnLoadDyt()</slot>
+  <slot>OnSaveDyt()</slot>
+  <slot>OnBbox()</slot>
+  <slot>slot3()</slot>
+  <slot>OnManChgArea()</slot>
+ </slots>
+</ui>

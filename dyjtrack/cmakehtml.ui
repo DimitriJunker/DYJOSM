@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CMakeHtml</class>
+ <widget class="QDialog" name="CMakeHtml">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>895</width>
+    <height>437</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>HTML erstellen</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>790</x>
+     <y>20</y>
+     <width>81</width>
+     <height>241</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>741</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Bereich,Zoom &amp;&amp; Sprache</string>
+   </property>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>30</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Breite:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="le_lat">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>30</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>30</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Grad</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>30</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Länge:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>30</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Grad</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>30</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Zoom:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="le_lon">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>30</y>
+      <width>71</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="cb_zoom">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>30</y>
+      <width>69</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="rb_de">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>80</y>
+      <width>82</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Deutsch</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
+   </widget>
+   <widget class="QRadioButton" name="rb_en">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>80</y>
+      <width>82</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Englisch</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
+   </widget>
+   <widget class="QRadioButton" name="rb_fr">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>80</y>
+      <width>82</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Französisch</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">buttonGroup</string>
+    </attribute>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>861</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Titel &amp;&amp; Beschreibung</string>
+   </property>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Titel:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>46</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Besachr.:</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="le_titel">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>20</y>
+      <width>791</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="le_descr">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>50</y>
+      <width>791</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_3">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>230</y>
+     <width>861</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Template</string>
+   </property>
+   <widget class="QPushButton" name="pb_templ_make">
+    <property name="geometry">
+     <rect>
+      <x>744</x>
+      <y>20</y>
+      <width>101</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Template erstellen</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pb_templ_choose">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>20</y>
+      <width>31</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">...</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="l_temp">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>681</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">TextLabel</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="pb_mHtml">
+   <property name="geometry">
+    <rect>
+     <x>790</x>
+     <y>80</y>
+     <width>81</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>HTML erstellen</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pb_Help">
+   <property name="geometry">
+    <rect>
+     <x>790</x>
+     <y>110</y>
+     <width>81</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Hilfe</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>290</y>
+     <width>861</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Ausgabe Verzeichnis</string>
+   </property>
+   <widget class="QLabel" name="l_outDir">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>791</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pb_OutDir">
+    <property name="geometry">
+     <rect>
+      <x>814</x>
+      <y>10</y>
+      <width>31</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string notr="true">...</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_5">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>340</y>
+     <width>861</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Openlayers</string>
+   </property>
+   <widget class="QRadioButton" name="rb_Templ">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>71</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Template</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">bg_openl</string>
+    </attribute>
+   </widget>
+   <widget class="QRadioButton" name="rb_lokal">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>20</y>
+      <width>82</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>lokal</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">bg_openl</string>
+    </attribute>
+   </widget>
+   <widget class="QRadioButton" name="rb_path">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>50</y>
+      <width>51</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Pfad:</string>
+    </property>
+    <attribute name="buttonGroup">
+     <string notr="true">bg_openl</string>
+    </attribute>
+   </widget>
+   <widget class="QLineEdit" name="le_openL">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>50</y>
+      <width>781</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>CMakeHtml</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>CMakeHtml</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_mHtml</sender>
+   <signal>clicked()</signal>
+   <receiver>CMakeHtml</receiver>
+   <slot>onMakeHtml()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>841</x>
+     <y>88</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>883</x>
+     <y>93</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_Help</sender>
+   <signal>clicked()</signal>
+   <receiver>CMakeHtml</receiver>
+   <slot>onHtmlHilfe()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>854</x>
+     <y>117</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>876</x>
+     <y>119</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_templ_choose</sender>
+   <signal>clicked()</signal>
+   <receiver>CMakeHtml</receiver>
+   <slot>onHtmlTempl()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>733</x>
+     <y>262</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>881</x>
+     <y>225</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_templ_make</sender>
+   <signal>clicked()</signal>
+   <receiver>CMakeHtml</receiver>
+   <slot>onMkTempl()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>792</x>
+     <y>261</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>880</x>
+     <y>263</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pb_OutDir</sender>
+   <signal>clicked()</signal>
+   <receiver>CMakeHtml</receiver>
+   <slot>onHtmlOut()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>844</x>
+     <y>312</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>880</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rb_Templ</sender>
+   <signal>clicked()</signal>
+   <receiver>CMakeHtml</receiver>
+   <slot>onOL_T()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>27</x>
+     <y>368</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>73</x>
+     <y>429</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rb_path</sender>
+   <signal>clicked()</signal>
+   <receiver>CMakeHtml</receiver>
+   <slot>onOL_U()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>37</x>
+     <y>406</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>37</x>
+     <y>423</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>rb_lokal</sender>
+   <signal>clicked()</signal>
+   <receiver>CMakeHtml</receiver>
+   <slot>onOL_L()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>109</x>
+     <y>373</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>160</x>
+     <y>430</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>onMakeHtml()</slot>
+  <slot>onHtmlHilfe()</slot>
+  <slot>onHtmlTempl()</slot>
+  <slot>onMkTempl()</slot>
+  <slot>onHtmlOut()</slot>
+  <slot>onOL_T()</slot>
+  <slot>onOL_U()</slot>
+  <slot>onOL_L()</slot>
+ </slots>
+ <buttongroups>
+  <buttongroup name="bg_openl"/>
+  <buttongroup name="buttonGroup"/>
+ </buttongroups>
+</ui>
