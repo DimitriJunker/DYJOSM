@@ -19,13 +19,14 @@ Nötige Änderungen zur Anpassung an Visual Studio 2013
 #include <QSettings>
 #include <QThread>
 
-QString m_osmUrl="https://dimitrijunker.lima-city.de/OSM/";
+// QString m_osmUrl="https://dimitrijunker.lima-city.de/OSM/";
 
 CTahoOpt::CTahoOpt(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::CTahoOpt)
 {
     ui->setupUi(this);
+    m_osmUrl="https://dimitrijunker.lima-city.de/OSM/";
     m_tasks = abs(QThread::idealThreadCount());
 
     m_saveButton = ui->buttonBox->addButton(tr("Speichern"), QDialogButtonBox::ApplyRole);
