@@ -32,7 +32,11 @@ SOURCES += \
 	cxmlfile.cpp  \
 	Logfile.cpp   \
 	urldownload.cpp \
-	Vectmap.cpp   
+	Vectmap.cpp \   
+    cavifile.cpp \
+    trackcol.cpp \
+    cgpxinfo.cpp \
+    urldownload.cpp
         
 HEADERS += \
         cgeopoint.h \
@@ -45,7 +49,11 @@ HEADERS += \
 	cxmlfile.h \ 
 	Logfile.h \ 
 	urldownload.h \ 
-	Vectmap.h
+	Vectmap.h \
+    cavifile.h \
+    trackcol.h \
+    cgpxinfo.h \
+    urldownload.h
 
 unix {
     target.path = /usr/lib
