@@ -32,10 +32,10 @@ SOURCES += \
 	cxmlfile.cpp  \
 	Logfile.cpp   \
 	urldownload.cpp \
-	Vectmap.cpp \   
-    cavifile.cpp \
-    trackcol.cpp \
+        Vectmap.cpp \
     cgpxinfo.cpp \
+    cavifile.cpp \
+    trackcol.cpp
     urldownload.cpp
         
 HEADERS += \
@@ -49,14 +49,15 @@ HEADERS += \
 	cxmlfile.h \ 
 	Logfile.h \ 
 	urldownload.h \ 
-	Vectmap.h \
-    cavifile.h \
-    trackcol.h \
+        Vectmap.h \
     cgpxinfo.h \
+    trackcol.h \
+    cavifile.h
     urldownload.h
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
 
