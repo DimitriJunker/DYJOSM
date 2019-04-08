@@ -6,182 +6,106 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>368</width>
+    <height>226</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>über DYJ-Track</string>
   </property>
-  <widget class="QLabel" name="label_8">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>220</y>
-     <width>301</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Es verwendet die dynamisch dazu gelinkten QT-Bibliotheken.</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pb_dyj">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>140</y>
-     <width>75</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Autor</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_9">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>250</y>
-     <width>291</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Die erzeugten Karten unterstehen meist der Lizens von</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>90</y>
-     <width>46</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Lizenz:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_6">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>190</y>
-     <width>261</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Dieses Programm wurde mit QT Creator entwickelt.</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>170</x>
-     <y>270</y>
-     <width>75</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string notr="true">© OSM </string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>10</y>
-     <width>71</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string notr="true">Dimitri Junker</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>46</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Autor:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>50</y>
-     <width>46</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Version:</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pb_gpl">
-   <property name="geometry">
-    <rect>
-     <x>70</x>
-     <y>90</y>
-     <width>75</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>GPL V.3</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_10">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>270</y>
-     <width>151</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Openstreetmap, weiteres s.:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_4">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>140</y>
-     <width>46</width>
-     <height>13</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>WWW:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="la_vers">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>50</y>
-     <width>191</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string notr="true">TextLabel</string>
-   </property>
-  </widget>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Autor:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string notr="true">Dimitri Junker</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="text">
+      <string>Version:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" colspan="2">
+    <widget class="QLabel" name="la_vers">
+     <property name="text">
+      <string notr="true">TextLabel</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Lizenz:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QPushButton" name="pb_gpl">
+     <property name="text">
+      <string>GPL V.3</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>WWW:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="QPushButton" name="pb_dyj">
+     <property name="text">
+      <string>Autor</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="3">
+    <widget class="QLabel" name="label_6">
+     <property name="text">
+      <string>Dieses Programm wurde mit QT Creator entwickelt.</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="3">
+    <widget class="QLabel" name="label_8">
+     <property name="text">
+      <string>Es verwendet die dynamisch dazu gelinkten QT-Bibliotheken.</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0" colspan="3">
+    <widget class="QLabel" name="label_9">
+     <property name="text">
+      <string>Die erzeugten Karten unterstehen meist der Lizens von</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="0" colspan="2">
+    <widget class="QLabel" name="label_10">
+     <property name="text">
+      <string>Openstreetmap, weiteres s.:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="7" column="2">
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string notr="true">© OSM </string>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections>
