@@ -29,7 +29,11 @@ int urlDownload::downloadFile(const QString &url, const QString &aPathInClient)
         QUrl aUrl(url);
         QFileInfo fileInfo=aUrl.path();
 
-//        QFile file(aPathInClient+"/"+fileInfo.fileName());
+        QFileInfo fi(aPathInClient);
+        QDir dir(fi.dir());
+        if(!dir.exists())
+            dir.mkpath(fi.path());
+
         QFile file(aPathInClient);
         file.open(QIODevice::WriteOnly);
         QByteArray ba=reply->readAll();

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">Taho 4.08</string>
+   <string notr="true">Taho 4.09</string>
   </property>
   <property name="windowIcon">
    <iconset resource="taho.qrc">
@@ -865,7 +865,7 @@
      <x>0</x>
      <y>0</y>
      <width>761</width>
-     <height>17</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuDatei">
