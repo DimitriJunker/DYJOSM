@@ -471,10 +471,15 @@ bool TahoMainW::loadTaho(QString pfad)
         }
         else
         {
+            QString tmp;
             m_opt.setZipPath(settings.value("zip").toString());
             m_opt.setZipPar(settings.value("zippar").toString());
             m_opt.setUnGzPar(settings.value("ungzpar").toString());
-            m_opt.m_osmUrl=settings.value("OsmUrl").toString();
+            tmp=settings.value("OsmUrl").toString();
+            if(tmp.isEmpty())
+                settings.setValue("OsmUrl",m_opt.m_osmUrl);
+            else
+                m_opt.m_osmUrl=tmp;
             m_opt.setOffDirPath(settings.value("OfflineDir").toString());
             m_opt.m_tasks=qMax(1,settings.value("maxThreads").toInt());
             QString lang=settings.value("language").toString();
