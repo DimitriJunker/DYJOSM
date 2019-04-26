@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Taho"
-#define MyAppVersion "4.08"
+#define MyAppVersion "4.10"
 #define MyAppPublisher "Dimitri Junker"
 #define MyAppURL "www.dimitri-junker.de/html/openstreetmap.html"
 #define MyAppExeName "Taho.exe"
@@ -27,6 +27,7 @@ OutputBaseFilename=taho32_setup_{#AppVersion4FN}
 LicenseFile=..\Taho\Docu\Lizenz_en.txt
 Compression=lzma
 SolidCompression=yes
+#define ReleaseDir "..\..\build-Taho-Desktop_Qt_5_12_3_MinGW_32_bit-Release\Taho\release"
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"; LicenseFile: "..\Taho\Docu\Lizenz_en.txt"
@@ -38,18 +39,18 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 
 [Files]
-Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\Taho.exe"; DestDir: "{app}"; Flags: ignoreversion 
+Source: "{#ReleaseDir}\Taho.exe"; DestDir: "{app}"; Flags: ignoreversion 
 Source: "..\Taho\Docu\?*.html"; DestDir: "{app}\Docu"; Flags: ignoreversion
 Source: "..\Taho\Docu\?*.pdf"; DestDir: "{app}\Docu"; Flags: ignoreversion
 Source: "..\Taho\taho_en.qm"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Taho\taho_fr.qm"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\?*.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\platforms\?*"; DestDir: "{app}\platforms"; Flags: ignoreversion  
-Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\bearer\?*"; DestDir: "{app}\bearer"; Flags: ignoreversion
-Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\iconengines\?*"; DestDir: "{app}\iconengines"; Flags: ignoreversion
-Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\imageformats\?*"; DestDir: "{app}\imageformats"; Flags: ignoreversion
-Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\styles\?*"; DestDir: "{app}\styles"; Flags: ignoreversion
-Source: "..\..\build-dyj-Desktop_Qt_5_11_3_MinGW_32bit-Release\Taho\release\translations\?*"; DestDir: "{app}\translations"; Flags: ignoreversion
+Source: "{#ReleaseDir}\?*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#ReleaseDir}\platforms\?*"; DestDir: "{app}\platforms"; Flags: ignoreversion  
+Source: "{#ReleaseDir}\bearer\?*"; DestDir: "{app}\bearer"; Flags: ignoreversion
+Source: "{#ReleaseDir}\iconengines\?*"; DestDir: "{app}\iconengines"; Flags: ignoreversion
+Source: "{#ReleaseDir}\imageformats\?*"; DestDir: "{app}\imageformats"; Flags: ignoreversion
+Source: "{#ReleaseDir}\styles\?*"; DestDir: "{app}\styles"; Flags: ignoreversion
+Source: "{#ReleaseDir}\translations\?*"; DestDir: "{app}\translations"; Flags: ignoreversion
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
