@@ -54,11 +54,13 @@ dytMainW::dytMainW(QWidget *parent) :
     QDir fi("G:\\Users\\Dimitri\\Dokumente\\DYJ");
     QString pfad=fi.path();
 
-
     int areaNr=0;
 
-
     ui->setupUi(this);
+
+    ui->tw_Bereich->addTab(tr("normaler Bereich"));
+    ui->tw_Bereich->addTab(tr("Übersichtsbereich (nur Filme)"));
+
     m_anzFiles=0;
     m_area.invalidate();
     m_autoAreas[0]=m_autoAreas[1]=true;
