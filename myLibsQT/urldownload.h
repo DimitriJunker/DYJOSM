@@ -2,17 +2,16 @@
 
 #ifndef URLDOWNLOAD_H
 #define URLDOWNLOAD_H
-#include <QString>
-#include <QLineEdit>
-#include <QDir>
-//#include <QNetworkReply>
+
+class QString;
+class QDir;
+
 class urlDownload
 {
 public:
-    urlDownload();
     static int downloadFile(const QString &url, const QString &aPathInClient);
-    static int downloadFile(const QString &url, const QDir &aPath,const QString &aFile);
+    static int downloadFile(const QString &url, const QDir &aPath, const QString &aFile);
 
-
+    urlDownload() = delete;
 };
 #endif // URLDOWNLOAD_H
