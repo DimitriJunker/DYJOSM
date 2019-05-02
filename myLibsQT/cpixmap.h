@@ -27,7 +27,7 @@ typedef struct
 enum {FUGAWI,GLOPUS,GMI,KML,OZI,PATHAWAY,TTQV,UIVIEW,WORLDFILE,ANZ_KAL};	//CHG: TAHO 2.10b SG
 
 enum {NB_NUM,NB_COORD,NB_DIR};
-typedef struct
+struct SDLM_DATA
 {
     int m_sizeP;
     int m_bpp;
@@ -47,7 +47,7 @@ typedef struct
     QString m_unGz;
     QProgressDialog *m_progD;
     QString m_offDir;
-}SDLM_DATA;
+};
 
 typedef struct
 {
