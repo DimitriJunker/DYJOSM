@@ -938,12 +938,9 @@ void TahoMainW::on_actionOptionen_triggered()
 
 void TahoMainW::on_actionInfo_triggered()
 {
-
     urlDownload::downloadFile("http://wieistmeinuseragent.de/", "uaid_de.html");
     urlDownload::downloadFile("http://whatsmyuseragent.com/", "uaid_en.html");
     urlDownload::downloadFile("http://www.infowebmaster.fr/outils/mon-user-agent.php", "uaid_fr.html");
-
-
 
     QString str=this->windowTitle();
     QString vers=QString("%1 (%2)").arg(str.mid(4)).arg(__DATE__);
@@ -954,10 +951,10 @@ void TahoMainW::on_actionInfo_triggered()
 
 void loadVMapInThread( MAKEMAPSV * aktMap )
 {
-    CVectmap vectm(aktMap->rect,aktMap->m_sdlm,aktMap->map);
-    QString *filename=new QString(vectm.m_filename);
-    vectm.LoadTile(aktMap->m_sdlm,*filename);
+    CVectmap vectm(aktMap->rect,*aktMap->m_sdlm, aktMap->map);
+    vectm.LoadTile(*aktMap->m_sdlm, vectm.m_filename);
 }
+
 void loadPMapInThread( MAKEMAPSP *aktMap)
 {
     CMapSrc *mapSrc=static_cast<CMapSrc *>(aktMap->m_sdlm->m_maps[0]);
