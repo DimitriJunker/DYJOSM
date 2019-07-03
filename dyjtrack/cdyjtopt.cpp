@@ -13,7 +13,7 @@ CDyjtOpt::CDyjtOpt(QWidget *parent) :
 //DYJ DYJTrack 2.07j     ui->rb_pfadR->setChecked(false);
 //DYJ DYJTrack 2.07j     ui->rb_pfadED->setChecked(true);
 //DYJ DYJTrack 2.07j     ui->rb_pfadPrg->setChecked(false);
-    ui->le_gb->setText("2");
+    ui->le_gb->setValue(2);
 }
 
 CDyjtOpt::~CDyjtOpt()
@@ -99,13 +99,11 @@ bool CDyjtOpt::getRelPath()
 
 void CDyjtOpt::setAviMax(double gb)
 {
-    ui->le_gb->setText(QString::number(gb));
+    ui->le_gb->setValue(gb);
 }
-
-
 
 double CDyjtOpt::getAviMax()
 {
-    return ui->le_gb->text().toDouble();
+    return ui->le_gb->value();
 }
 

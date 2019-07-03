@@ -50,7 +50,7 @@ FORMS    += \
 
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../myLibsQT/release/ -lmyLibsQT -lvfw32
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../myLibsQT/debug/ -lmyLibsQT -lvfw32
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../myLibsQT/debug/ -lmyLibsQT -lvfw32 -luser32
 
 INCLUDEPATH += $$PWD/../myLibsQT
 DEPENDPATH += $$PWD/../myLibsQT

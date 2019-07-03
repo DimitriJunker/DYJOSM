@@ -13,10 +13,10 @@ class newAirpDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit newAirpDialog(QWidget *parent = 0);
+    explicit newAirpDialog(QWidget *parent = nullptr);
     ~newAirpDialog();
-    void setName(QString name);
-    CGeoPoint getCoord();
+    void setName(const QString & name);
+    CGeoPoint getCoord() const;
 protected:
     void changeEvent(QEvent *e);
 

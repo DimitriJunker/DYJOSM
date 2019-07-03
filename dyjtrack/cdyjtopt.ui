@@ -6,129 +6,108 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>441</width>
+    <width>375</width>
     <height>262</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Einstellungen</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox">
-   <property name="geometry">
-    <rect>
-     <x>300</x>
-     <y>10</y>
-     <width>81</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Vertical</enum>
-   </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-   </property>
-  </widget>
-  <widget class="QGroupBox" name="groupBox_2">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>80</y>
-     <width>351</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Quelle</string>
-   </property>
-   <widget class="QPushButton" name="pb_update">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>20</y>
-      <width>181</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>update Quell-URLs</string>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QGroupBox" name="groupBox_3">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>160</y>
-     <width>351</width>
-     <height>61</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Video Ausgabe</string>
-   </property>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>110</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Maximale Filelänge/GB:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="le_gb">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>30</y>
-      <width>113</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
-  </widget>
-  <widget class="QGroupBox" name="groupBox_4">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>10</y>
-     <width>251</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Sprache</string>
-   </property>
-   <widget class="QComboBox" name="cb_lang">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>20</y>
-      <width>161</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <item>
-     <property name="text">
-      <string notr="true">Deutsch</string>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QGroupBox" name="groupBox_4">
+       <property name="title">
+        <string>Sprache</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QComboBox" name="cb_lang">
+          <item>
+           <property name="text">
+            <string notr="true">Deutsch</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">English</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string notr="true">Français</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_2">
+       <property name="title">
+        <string>Quelle</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QPushButton" name="pb_update">
+          <property name="text">
+           <string>update Quell-URLs</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_3">
+       <property name="title">
+        <string>Video Ausgabe</string>
+       </property>
+       <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Maximale Filelänge/GB:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QDoubleSpinBox" name="le_gb">
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+          <property name="suffix">
+           <string> GB</string>
+          </property>
+          <property name="decimals">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <double>20000.000000000000000</double>
+          </property>
+          <property name="value">
+           <double>2.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
-    </item>
-    <item>
-     <property name="text">
-      <string notr="true">English</string>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
      </property>
-    </item>
-    <item>
-     <property name="text">
-      <string notr="true">Français</string>
-     </property>
-    </item>
-   </widget>
-  </widget>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections>

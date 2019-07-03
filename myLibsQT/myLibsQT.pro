@@ -36,6 +36,7 @@ SOURCES += \
     cgpxinfo.cpp \
     cavifile.cpp \
     trackcol.cpp
+    urldownload.cpp
         
 HEADERS += \
         cgeopoint.h \
@@ -52,6 +53,7 @@ HEADERS += \
     cgpxinfo.h \
     trackcol.h \
     cavifile.h
+    urldownload.h
 
 unix {
     target.path = /usr/lib

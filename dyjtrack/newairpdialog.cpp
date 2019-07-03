@@ -14,11 +14,11 @@ newAirpDialog::~newAirpDialog()
 {
     delete ui;
 }
-void newAirpDialog::setName(QString name)
+void newAirpDialog::setName(const QString & name)
 {
     ui->airpCode->setText(name);
 }
-CGeoPoint newAirpDialog::getCoord()
+CGeoPoint newAirpDialog::getCoord() const
 {
     CGeoPoint ret;
     ret.m_lat=ui->le_airpLat->text().toDouble();

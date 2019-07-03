@@ -2,7 +2,6 @@
 #include <QString>
 #include <assert.h>
 
-
 /*
 Diese Klasse wurde für die Version 1.08a von DYJTrack erzeugt.
 
