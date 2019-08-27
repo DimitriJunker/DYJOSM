@@ -8,6 +8,9 @@ QT       += gui widgets network
 
 TARGET = myLibsQT
 TEMPLATE = lib
+TRANSLATIONS =mylibs_fr.ts\
+    mylibs_en.ts\
+    mylibs_xx.ts
 CONFIG += staticlib
 
 # The following define makes your compiler emit warnings if you use

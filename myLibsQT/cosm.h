@@ -54,6 +54,7 @@ public:
     COsm(int zoom,QString tilesource,QString tileExt,QString tahCache,unsigned int maxCacheDays);
     virtual ~COsm();
     static QMap<QString,QString> m_osmIDs;
+    static QMap<QString,QStringList> m_osmLogins;
 
 private:
     QString m_tahCache;
@@ -62,6 +63,9 @@ private:
     QString m_tileExt;
     int m_zoom;
     unsigned int m_maxCacheDays;
+    QString m_loginDomain;
+    QString m_loginName;
+    QString m_loginPwd;
 };
 
 

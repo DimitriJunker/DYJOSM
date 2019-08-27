@@ -20,7 +20,6 @@
 #include <QClipboard>
 #include <Vectmap.h>
 #include <QtConcurrent/QtConcurrent>
-#include <qinputdialog.h>
 
 //CHG: TAHO 2.10e DYJ
 //Beim Laden eines *.taho wurde die Datenquelle (Mapnik,...) nicht übernommen
@@ -935,14 +934,13 @@ void TahoMainW::on_actionOptionen_triggered()
     m_opt.exec();
 
 }
-
+#include <qinputdialog.h>
 void TahoMainW::on_actionInfo_triggered()
 {
 
-    urlDownload::downloadFile("http://wieistmeinuseragent.de/", "uaid_de.html");
-    urlDownload::downloadFile("http://whatsmyuseragent.com/", "uaid_en.html");
-    urlDownload::downloadFile("http://www.infowebmaster.fr/outils/mon-user-agent.php", "uaid_fr.html");
-
+//    urlDownload::downloadFile("http://wieistmeinuseragent.de/", "uaid_de.html");
+ //   urlDownload::downloadFile("http://whatsmyuseragent.com/", "uaid_en.html");
+//    urlDownload::downloadFile("http://www.infowebmaster.fr/outils/mon-user-agent.php", "uaid_fr.html");
 
 
     QString str=this->windowTitle();

@@ -51,6 +51,7 @@ QMap<QString,CMapSrc*> CMapSrc::m_mapSrc;
 
 QString CMapSrc::m_src="";
 QMap<QString,QString> COsm::m_osmIDs;
+QMap<QString,QStringList> COsm::m_osmLogins;
 
 CMapSrc::~CMapSrc()
 {
@@ -175,7 +176,7 @@ void CMapSrc::writeTaho(QString path,bool onlyPriv)
         QTextStream sTaho(&fTaho);
 
         sTaho << "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
-        sTaho << "<taho version=\"1.0\" creator=\"Taho.exe - http://www.dimitri-junker.de/html/openstreetmap.html\">\n";
+        sTaho << "<taho version=\"2.0\" creator=\"Taho.exe - http://www.dimitri-junker.de/html/openstreetmap.html\">\n";
         sTaho << "\t<mapallsrc>\n";
 
         QMap<QString,CMapSrc *>::iterator pos=m_mapSrc.begin();
@@ -222,6 +223,19 @@ void CMapSrc::writeTaho(QString path,bool onlyPriv)
             sTaho << "\t\t</ID>\n";
         }
         sTaho << "\t</OsmIds>\n";
+        sTaho << "\t<OsmLogins>\n";
+        QMapIterator<QString, QStringList> iterL(COsm::m_osmLogins);
+
+        while(iterL.hasNext())
+        {
+            iterL.next();
+            sTaho << "\t\t<LOGIN>\n";
+            sTaho << "\t\t\t<Domain>"<< iterL.key() <<"</Domain>\n";
+            sTaho << "\t\t\t<name>"<< iterL.value()[0] <<"</name>\n";
+            sTaho << "\t\t\t<pwd>"<< iterL.value()[1] <<"</pwd>\n";
+            sTaho << "\t\t</LOGIN>\n";
+        }
+        sTaho << "\t</OsmLogins>\n";
         sTaho << "</taho>\n";
     }
 }
@@ -241,6 +255,24 @@ bool CMapSrc::readTaho(CXmlFile *xTaho)
             xTaho->readValB(sName,sID,"name");
             xTaho->readValB(sIDVal,sID,"IDV");
             COsm::m_osmIDs.insert(sName,sIDVal);
+        }
+    }
+    QString sOsmLogins;
+    if(xTaho->readValB(sOsmLogins,"OsmLogins"))
+    {
+        QString sLI;
+        int pos=0;
+        while(xTaho->readValB(sLI,sOsmLogins,"LOGIN",&pos))
+        {
+            QString sDomain;
+            QString sName;
+            QString sPWD;
+            xTaho->readValB(sDomain,sLI,"Domain");
+            xTaho->readValB(sName,sLI,"name");
+            xTaho->readValB(sPWD,sLI,"pwd");
+            QStringList slLogin={sName,sPWD};
+
+            COsm::m_osmLogins.insert(sDomain,slLogin);
         }
     }
     QString sMapsrc;
@@ -298,8 +330,10 @@ bool CMapSrc::readTaho(CXmlFile *xTaho)
                     else
                         mapDefin="l";
                 [[clang::fallthrough]]; case MAP_OVR:
-                    xTaho->readValB(tmpstr,sSrc,"prefix");
-                    initP(sName,sURL,isMysrc,sExt,static_cast<unsigned char>(maxThreads),tmpstr,maxzoom,mapId,mapDefin);
+                    {
+                        xTaho->readValB(tmpstr,sSrc,"prefix");
+                        initP(sName,sURL,isMysrc,sExt,static_cast<unsigned char>(maxThreads),tmpstr,maxzoom,mapId,mapDefin);
+                    }
                     break;
                 case MAP_VECT:
                     xTaho->readValB(tmpstr,sSrc,"prefix");

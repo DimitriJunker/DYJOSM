@@ -31,6 +31,8 @@
 #include <qtextstream.h>
 #include <qdir.h>
 #include <qinputdialog.h>
+#include <qnetworkreply.h>
+#include <cmapsrc.h>
 
 //#pragma comment ( lib, "wininet.lib")
 
@@ -46,6 +48,19 @@ COsm::COsm(int zoom,QString tilesource,QString tileExt,QString tahCache,UINT max
     m_tileExt=tileExt;
     m_tahCache=tahCache;
     m_maxCacheDays=maxCacheDays;
+    QStringList urlP=m_tilesource.split('/');
+    m_loginDomain=urlP[2];
+    if(m_osmLogins.contains(m_loginDomain))
+    {
+        QStringList sLlogin=m_osmLogins.value(m_loginDomain);
+        m_loginName=sLlogin[0];
+        m_loginPwd=sLlogin[1];
+    }
+    else
+    {
+        m_loginName="";
+        m_loginPwd="";
+    }
 }
 
 COsm::~COsm()
@@ -189,7 +204,17 @@ int COsm::getsaveTileWithCache(int x, int y,QString &file,QString *pErrTxt,QStri
     urlStart=url;
     while(ret)
     {
-        if((ret=urlDownload::downloadFile(url, file))==0)
+        if((ret=urlDownload::downloadFile(url, file,m_loginName,m_loginPwd))==2) // neue Login info
+        {
+            ret=0;
+            QStringList slLogin=urlDownload::getLogin();
+            m_loginName=slLogin[0];
+            m_loginPwd=slLogin[1];
+            m_osmLogins.insert(m_loginDomain,slLogin);
+            CMapSrc::writeTaho(CMapSrc::m_mySrc,true);
+        }
+
+        if((ret=urlDownload::downloadFile(url, file,m_loginName,m_loginPwd))==0)
         {
             QFileInfo fii(file);
             if(fii.exists())	// prüfen ob das File OK sein könnte
@@ -273,9 +298,11 @@ int COsm::getsaveTileWithCache(int x, int y,QString &file,QString *pErrTxt,QStri
         }
         else if(pErrTxt)
             *pErrTxt=QString("\tURLDownloadToFile(%1,%2) -> 0x%3<br>\r\n").arg(url).arg(file).arg(QString::number(ret,16));
-        if(ret)
+        if(ret==QNetworkReply::AuthenticationRequiredError)
+            return ret;
+        if(ret!=QNetworkReply::NoError)
         {
-            ret=1;
+             ret=1;
             if(url.startsWith("http://a."))
                 url.replace(7,1,'b');
             else if(url.startsWith("http://b."))

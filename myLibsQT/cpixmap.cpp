@@ -7,6 +7,7 @@
 #include <cmath>
 #include <QTimer>
 #include <QTextStream>
+#include <qnetworkreply.h>
 
 #define tilesize 256
 
@@ -223,6 +224,9 @@ void CPixmap::MakeMapTile(SDLM_DATA *data, CGeoRect *pgRect, bool cacheMap)
                     case 3: //y ungültig ->schwarz
                         draw=false;
                         break;
+                    case QNetworkReply::AuthenticationRequiredError:
+                        return;
+
                     }
                     if(draw)
                     {
