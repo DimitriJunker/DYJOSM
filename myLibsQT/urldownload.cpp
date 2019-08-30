@@ -49,10 +49,6 @@ int urlDownload::downloadFile(const QString &url, const QString &aPathInClient,Q
     QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
     loop.exec();
 
-//    QUrl aUrl(url);
-//  QFileInfo fileInfo=aUrl.path();
-
-//        QFile file(aPathInClient+"/"+fileInfo.fileName());
     err=authHandler.getErr();
     if(err==QNetworkReply::NoError)
         err=reply->error();
@@ -101,7 +97,7 @@ void AuthenticationHandler::handleAuthentication(QNetworkReply *, QAuthenticator
     m_authTry++;
     qDebug() << "Authenticating as " << m_login << "/" << m_password << "try:" << m_authTry;
     QString loginStr="";
-    bool ok=true;
+    bool ok=true,ask=false;
 
     if(m_login.isEmpty()||m_password.isEmpty())
     {
@@ -110,23 +106,35 @@ void AuthenticationHandler::handleAuthentication(QNetworkReply *, QAuthenticator
     }
     else if(m_authTry>1)
     {
-        QString oldLI=QString("%1:%2").arg(m_login).arg(m_password);
-        loginStr=QInputDialog::getText(nullptr,QObject::tr("Login Info für Tileserver war falsch"),
-                                       QObject::tr("Eingabe durch ':' getrennt, also: username:password"),QLineEdit::Normal,oldLI,&ok);
+        loginStr=QString("%1:%2").arg(m_login).arg(m_password);
+        ask=true;
     }
-    if(ok && !loginStr.isEmpty())
+    while(ok && !loginStr.isEmpty())
     {
-        QStringList loginStrL=loginStr.split(':');
-        if(loginStrL.count()==2)
+        if(!ask)
         {
-            m_login=loginStrL[0];
-            m_password=loginStrL[1];
-            m_err=2;
-            m_authTry=1;
-
+            QStringList loginStrL=loginStr.split(':');
+            if(loginStrL.count()==2)
+            {
+                m_login=loginStrL[0];
+                m_password=loginStrL[1];
+                m_err=2;
+                m_authTry=1;
+                loginStr="";
+            }
+            else {
+                ask=true;
+            }
+        }
+        if(ask)
+        {
+            loginStr=QInputDialog::getText(nullptr,QObject::tr("Login Info für Tileserver war falsch"),
+                                               QObject::tr("Eingabe durch ':' getrennt, also: username:password"),QLineEdit::Normal,loginStr,&ok);
+            ask=false;
         }
     }
-    if(!ok || m_login.isEmpty()||m_password.isEmpty() || m_authTry>1)
+
+    if(!ok)
     {
         QMessageBox::warning(nullptr, "", QObject::tr("Bitte andere Quelle wählen oder sich auf der Homepage anmelden"),
                              QMessageBox::Ok);
