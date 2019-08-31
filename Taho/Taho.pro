@@ -11,9 +11,6 @@ QT += concurrent
 
 TARGET = Taho
 TEMPLATE = app
-TRANSLATIONS =taho_fr.ts\
-    taho_en.ts\
-    taho_xx.ts
 
 SOURCES += main.cpp\
         tahomainw.cpp \

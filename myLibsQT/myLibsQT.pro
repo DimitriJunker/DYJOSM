@@ -8,9 +8,6 @@ QT       += gui widgets network
 
 TARGET = myLibsQT
 TEMPLATE = lib
-TRANSLATIONS =mylibs_fr.ts\
-    mylibs_en.ts\
-    mylibs_xx.ts
 CONFIG += staticlib
 
 # The following define makes your compiler emit warnings if you use
@@ -25,29 +22,35 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-	cgeopoint.cpp \
-	cgeorect.cpp  \
+        cavifile.cpp \
+        cgeopoint.cpp \
+        cgeorect.cpp  \
+        cgpxinfo.cpp  \
 	cmapsrc.cpp   \
 	cosm.cpp      \
 	cosmopt.cpp   \
 	cpath.cpp     \
 	cpixmap.cpp   \
 	cxmlfile.cpp  \
-	Logfile.cpp   \
-	urldownload.cpp \
+        Logfile.cpp   \
+        trackcol.cpp   \
+        urldownload.cpp \
 	Vectmap.cpp   
         
 HEADERS += \
+        cavifile.h \
         cgeopoint.h \
        	cgeorect.h \ 
-	cmapsrc.h \ 
+        cgpxinfo.h  \
+        cmapsrc.h \
 	cosm.h \ 
 	cosmopt.h \ 
 	cpath.h \ 
 	cpixmap.h \ 
 	cxmlfile.h \ 
 	Logfile.h \ 
-	urldownload.h \ 
+        trackcol.h   \
+        urldownload.h \
 	Vectmap.h
 
 unix {

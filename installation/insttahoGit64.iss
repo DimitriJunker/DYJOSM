@@ -48,10 +48,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "..\..\build-Taho-Desktop_Qt_5_12_3_MinGW_64_bit-Release\Taho\release\Taho.exe"; DestDir: "{app}"; Flags: ignoreversion 
 Source: "..\Taho\Docu\?*.html"; DestDir: "{app}\Docu"; Flags: ignoreversion
 Source: "..\Taho\Docu\?*.pdf"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "..\Taho\taho_en.qm"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Taho\taho_fr.qm"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\myLibsQT\mylibs_fr.qm"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\myLibsQT\mylibs_en.qm"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\taho_en.qm"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\taho_fr.qm"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\build-Taho-Desktop_Qt_5_12_3_MinGW_64_bit-Release\Taho\release\?*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\build-Taho-Desktop_Qt_5_12_3_MinGW_64_bit-Release\Taho\release\platforms\?*"; DestDir: "{app}\platforms"; Flags: ignoreversion  
 Source: "..\..\build-Taho-Desktop_Qt_5_12_3_MinGW_64_bit-Release\Taho\release\bearer\?*"; DestDir: "{app}\bearer"; Flags: ignoreversion

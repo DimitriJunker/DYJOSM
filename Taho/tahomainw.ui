@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">Taho 4.11</string>
+   <string notr="true">Taho 4.12</string>
   </property>
   <property name="windowIcon">
    <iconset resource="taho.qrc">
