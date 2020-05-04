@@ -13,6 +13,7 @@
 #include "cpath.h"
 #include <QTranslator>
 #include <trackcol.h>
+#include <Logfile.h>
 
 namespace Ui {
 class dytMainW;
@@ -47,10 +48,11 @@ public:
     void loadProject(bool add);
     QTranslator m_language;
     void CpyArea2Form();
-    QString m_progName; /*DYJ DYJTrack 2.04a */
+    QString m_progName;
 
+    CLogfile m_log;
 
-
+    void closeEvent(QCloseEvent *event);
 signals:
 protected:
     QString getTextGpx(CGPXInfo *pGi);
@@ -80,11 +82,11 @@ public slots:
     void OnFly();
     void OnChgGpx();
     void OnSelChgArea();
-    void OnManChgArea();	/*DYJ DYJTrack 2.05c */
+    void OnManChgArea();
     void OnChgRand();
     void OnChgAutoArea();
-    void OnLoadDyt();
-    void OnSaveDyt();
+    void OnLoadDyb();
+    void OnSaveDyb();
     void OnBbox();
     void on_actionNeues_Projekt_triggered();
     void on_actionProjekt_laden_triggered();
@@ -109,6 +111,7 @@ private:
     Ui::dytMainW *ui;
     void addGpx(QString pfad,const QString name="",TrackCol *pCol=nullptr,QDateTime odt=QDateTime(),bool rev=false);
     void addGpxI(CGPXInfo *pGi,bool sort=true);
+
 };
 
 #endif // DYTMAINW_H

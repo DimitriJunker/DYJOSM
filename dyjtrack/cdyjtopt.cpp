@@ -7,12 +7,6 @@ CDyjtOpt::CDyjtOpt(QWidget *parent) :
     ui(new Ui::CDyjtOpt)
 {
     ui->setupUi(this);
-//DYJ DYJTrack 2.07j 	    m_pDefPrg=ui->rb_pfadPrg;
-//DYJ DYJTrack 2.07j 	    m_pDefED=ui->rb_pfadED;
-//DYJ DYJTrack 2.07j     ui->rb_pfadA->setChecked(true);
-//DYJ DYJTrack 2.07j     ui->rb_pfadR->setChecked(false);
-//DYJ DYJTrack 2.07j     ui->rb_pfadED->setChecked(true);
-//DYJ DYJTrack 2.07j     ui->rb_pfadPrg->setChecked(false);
     ui->le_gb->setText("2");
 }
 
@@ -20,39 +14,10 @@ CDyjtOpt::~CDyjtOpt()
 {
     delete ui;
 }
-/*DYJ DYJTrack 2.07d Start*/
-/*DYJ  Ende; alt:
-
-void CDyjtOpt::OnExpSrc()
-{
-//    UpdateData(true);
-    expSrc();
-}
-*/
 void CDyjtOpt::OnUpdSrc()
 {
     COsmOpt::OnUpdSrc();
 }
-/*DYJ DYJTrack 2.07j Start*/
-/*DYJ  Ende; alt:
-void CDyjtOpt::OnNormal()
-{
-    setDefPathIsPrg(false);
-    setRelPath(false);
-    setDefPathIsPrg(false);
-//    UpdateData(false);
-
-}
-
-void CDyjtOpt::OnUsb()
-{
-    setDefPathIsPrg(true);
-    setRelPath(true);
-    setDefPathIsPrg(true);
-//    UpdateData(false);
-
-}
-*/
 
 void CDyjtOpt::change_lang(QString lang)
 {
@@ -82,20 +47,6 @@ void CDyjtOpt::changeEvent(QEvent *e)
         break;
     }
 }
-/*DYJ DYJTrack 2.07j Start*/
-/*DYJ  Ende; alt:
-
-void CDyjtOpt::setRelPath(bool isRel)
-{
-    ui->rb_pfadA->setChecked(!isRel);
-    ui->rb_pfadR->setChecked(isRel);
-
-}
-bool CDyjtOpt::getRelPath()
-{
-    return ui->rb_pfadR->isChecked();
-
-}*/
 
 void CDyjtOpt::setAviMax(double gb)
 {

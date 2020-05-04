@@ -13,6 +13,7 @@
 #include <QTextStream>
 #include <cxmlfile.h>
 #include <QStandardPaths>
+#include <QTime>
 
 
 //////////////////////////////////////////////////////////////////////
@@ -57,7 +58,9 @@ CLogfile::CLogfile()
     out<< "<title>"<< (QObject::tr("Logfile für: ")) << exePath << "</title>"<<"\r\n";
     out<<"</head>"<<"\r\n";
     out<<"<body>"<<"\r\n";
+
     log.close();
+    writeFLS("Start LOG");
 }
 
 CLogfile::~CLogfile()
@@ -71,7 +74,7 @@ void CLogfile::write(QString file,int line,QString str)
     if(log.open( QIODevice::Append)==0)
         return;
     QTextStream out(&log);
-    out << file << ": " << line << " " << str;
+    out << "<pre>" << QTime::currentTime().toString("hh:mm:ss.zzz : ") << file << ": " << line << " " << str << "</pre>";
     log.close();
 
 }

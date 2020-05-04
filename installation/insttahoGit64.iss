@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Taho"
-#define MyAppVersion "4.11"
+#define MyAppVersion "4.12"
 #define MyAppPublisher "Dimitri Junker"
 #define MyAppURL "www.dimitri-junker.de/html/openstreetmap.html"
 #define MyAppExeName "Taho.exe"

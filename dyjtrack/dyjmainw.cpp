@@ -6,19 +6,19 @@
 #include <qtextstream.h>
 
 
-#include "ui_dyjMainW.h"
-#include "dyjMainW.h"
+#include "ui_dyjmainw.h"
+#include "dyjmainw.h"
 #include "cmapsrc.h"
-#include "cgpxProper.h"
+#include "cgpxproper.h"
 #include "urldownload.h"
 #include <cmath>
 #include "flugdialog.h"
 #include "cosm.h"
 #include "newairpdialog.h"
-#include <cdyjtcopy.h>//DYJ DYJTrack 2.04a
+#include <cdyjtcopy.h>
 
 #define T_SET "default.dyt"
-QString OsmUrl="https://dimitrijunker.lima-city.de/OSM/";   //DYJ DYJTrack 2.06d
+QString OsmUrl="https://dimitrijunker.lima-city.de/OSM/";
 
 
 /*
@@ -80,8 +80,8 @@ dytMainW::dytMainW(QWidget *parent) :
     m_htmlOpt.m_title="";
     m_htmlOpt.m_zoom=5;
     m_htmlOpt.m_lat=m_htmlOpt. m_lon=0;
-    m_htmlOpt.m_oplSrc=OL_TEMPL;	/*DYJ 1.04e */
-    m_htmlOpt.m_oplPath="";	/*DYJ 1.04e */
+    m_htmlOpt.m_oplSrc=OL_TEMPL;
+    m_htmlOpt.m_oplPath="";
 
 
     m_aviOpt.m_out=m_opt.m_tmpDir+"dyt.avi";
@@ -94,11 +94,7 @@ dytMainW::dytMainW(QWidget *parent) :
     m_aviOpt.m_time[1]=10;
     m_aviOpt.m_time[4]=20;
     m_aviOpt.m_time[2]=0;
-    /*DYJ DYJTrack 2.07e Start*/
     m_aviOpt.m_source=CMapSrc::m_src;
-    /*DYJ  Ende; alt:
-    m_aviOpt.m_source=SrcName[BAS_MAPNIK_DE];
-    */
 
     m_pictOpt.m_out=m_opt.m_tmpDir+"dyt.png";
     m_pictOpt.m_pixType=PIX_PICT;
@@ -106,11 +102,7 @@ dytMainW::dytMainW(QWidget *parent) :
     m_pictOpt.m_y=1080;
     m_pictOpt.m_lineW=3;
 
-    /*DYJ DYJTrack 2.07e Start*/
     m_pictOpt.m_source=CMapSrc::m_src;
-    /*DYJ  Ende; alt:
-    m_pictOpt.m_source=SrcName[BAS_MAPNIK_DE];
-    */
     ui->cbSortByDate->setChecked(true);
     OnSelchangeFiles();
     ui->progressBar->setValue(0);
@@ -133,14 +125,12 @@ dytMainW::dytMainW(QWidget *parent) :
     m_airpPath[1]=m_opt.m_persPath+"my_airports.csv";
     QFileInfo finf(m_airpPath[0]);
     if(!finf.exists())
-        urlDownload::downloadFile("http://www.ourairports.com/data/airports.csv",  m_airpPath[0]);
+        urlDownload::downloadFile("https://ourairports.com/data/airports.csv",  m_airpPath[0]);
     ui->filesListWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
     bool execDone=false;
 
 // default.dyt laden
-//DYJ DYJTrack 2.07j 	   m_opt.setDefPathIsPrg(FALSE);
-//DYJ DYJTrack 2.07j 	    m_opt.setRelPath(false);	//Absolute Pfade
-    m_opt.setAviMax(2.);	/*DYJ 1.08a */
+    m_opt.setAviMax(2.);
     m_opt.m_pLanguage=&m_language;
     if (m_opt.m_par.isEmpty())
     {
@@ -151,34 +141,17 @@ dytMainW::dytMainW(QWidget *parent) :
             QString hPath = m_opt.m_prgPath + T_SET;
             execDone = loadDyt(hPath);
             if (execDone)
-                /*DYJ DYJTrack 2.07j Start*/
                QFile::copy(hPath,m_opt.m_persPath + T_SET);
-            /*DYJ  Ende; alt:
-            {
-                if (m_opt.getDefPathIsPrg())
-                    m_projectPath = hPath;
-                else
-                    saveDyt(m_projectPath.makePath());
-            }
-                */
         }
     }
     else
         execDone = loadDyt(m_opt.m_par);
-    /*DYJ DYJTrack 2.04a Start*/
     m_progName=this->windowTitle();
     if(execDone)
     {
         QString title= m_projectPath.makePath() + " - " + m_progName;
         this->setWindowTitle(title);
     }
-    /*DYJ  Ende; alt:
-    if(execDone)
-    {
-        QString title= m_projectPath.makePath() + " - " + windowTitle();
-        this->setWindowTitle(title);
-    }
-    */
 
     OnSelchangeFiles();
 }
@@ -196,27 +169,36 @@ dytMainW::~dytMainW()
 
 void dytMainW::OnAddgpx()
 {
-    QStringList fileNames= QFileDialog::getOpenFileNames(this,tr("Lade GPX"),"",tr("GPX-Files(*.gpx)"));
+    static QString gpxDir="";
+    QStringList fileNames= QFileDialog::getOpenFileNames(this,tr("Lade GPX"),gpxDir,tr("GPX-Files(*.gpx)"));
     QStringList list = fileNames;
     int anzFiles=list.count(),i=0;
-    ui->progressBar->setRange(0,anzFiles);
-    ui->tl_action->setText(tr("Lade %n GPX-Datei(en)",0,anzFiles));
-    ui->tl_action->repaint();
-    QStringList::Iterator it = list.begin();
-    while(it != list.end()) {
-        addGpx(*it);
-        ui->progressBar->setValue(i++);
+    if(anzFiles)
+    {
+        gpxDir="";
+        ui->progressBar->setRange(0,anzFiles);
+        ui->tl_action->setText(tr("Lade %n GPX-Datei(en)",nullptr,anzFiles));
+        ui->tl_action->repaint();
+        QStringList::Iterator it = list.begin();
+        while(it != list.end()) {
+            addGpx(*it);
+            if(gpxDir.isEmpty())
+            {
+                QFileInfo fi(*it);
+                gpxDir=fi.absolutePath();
+            }
+            ui->progressBar->setValue(i++);
+            ui->progressBar->repaint();
+            ++it;
+        }
+
+        OnSelchangeFiles();
+        ui->progressBar->setValue(0);
         ui->progressBar->repaint();
-        ++it;
+        ui->tl_action->setText(tr("keine"));
+        ui->tl_action->repaint();
+        updateArea(false);
     }
-
-
-    OnSelchangeFiles();
-    ui->progressBar->setValue(0);
-    ui->progressBar->repaint();
-    ui->tl_action->setText(tr("keine"));
-    ui->tl_action->repaint();
-    updateArea(false);
 }
 void dytMainW::OnSelchangeFiles()
 {
@@ -330,15 +312,15 @@ void dytMainW::updateArea(bool calcArea)
     m_htmlOpt.m_lat=(m_lat[0]+m_lat[1])/2;
     m_htmlOpt.m_lon=(m_lon[0]+m_lon[1])/2;
     double zoom1,zoom2;
-    if(m_lon[0]==m_lon[1])
+    if(fabs(m_lon[0]-m_lon[1])<0.01)
         zoom1=17;
     else
         zoom1=10.7-log(fabs(m_lon[0]-m_lon[1]))/log(2);
-    if(m_lat[0]==m_lat[1])
+    if(fabs(m_lat[0]-m_lat[1])<0.008)
         zoom2=17;
     else
         zoom2=10.2-log(fabs(m_lat[0]-m_lat[1]))/log(2);
-    m_htmlOpt.m_zoom=qMin(qMin((int)zoom1,(int)zoom2),17);
+    m_htmlOpt.m_zoom=qMin(qMin(int(zoom1),int(zoom2)),17);
 
 
 }
@@ -462,7 +444,7 @@ void dytMainW::addFlight(bool exportGpx, QString route, QDateTime start, QString
     {
         CGeoPoint gPt1=airp(route.left(nach-1)),gPt2;
         gPt2=airp(route.mid(nach+1));
-        if(gPt1.m_lat<1000 &&gPt1.m_lon<1000&&gPt2.m_lat<1000&&gPt2.m_lon<1000)/*DYJ 1.05c */
+        if(gPt1.m_lat<1000 &&gPt1.m_lon<1000&&gPt2.m_lat<1000&&gPt2.m_lon<1000)
         {
             pGi->m_area.add(gPt1);
             pGi->m_trkPts.append(gPt1);
@@ -477,10 +459,15 @@ void dytMainW::addFlight(bool exportGpx, QString route, QDateTime start, QString
     }
     if(exportGpx)
     {
-        QString fileName= QFileDialog::getSaveFileName(this,tr("Speicher GPX"),"",tr("GPX-Files(*.gpx)"));
+        static QString FlightDir="";
+        QString fileName= QFileDialog::getSaveFileName(this,tr("Speicher GPX"),FlightDir,tr("GPX-Files(*.gpx)"));
 
         if(!fileName.isEmpty())
+        {
+            QFileInfo fi(fileName);
+            FlightDir=fi.absolutePath();
             pGi->writeGPX(fileName);
+        }
         delete pGi;
     }
     else
@@ -579,7 +566,7 @@ CGeoPoint dytMainW::airp(QString name_c)
                 QFile fListe(m_airpPath[i]);
                 if(fListe.open(QIODevice::ReadOnly))
                 {
-                    int filePos=0,fileLen=fListe.size(),dispAt;
+                    int filePos=0,fileLen=int(fListe.size()),dispAt;
                     if(i)
                         dispAt=1000000000;
                     else
@@ -783,10 +770,8 @@ void dytMainW::OnChgGpx()
         }
         else
             sel=-1;     //Abbruch
-        /*DYJ DYJTrack 2.06a Start*/
         item->setText(getTextGpx(pGiSel));
         OnSortByDate();
-        /*DYJ  Ende; */
     }
 }
 void dytMainW::OnSelChgArea()
@@ -852,7 +837,7 @@ void dytMainW::enableArea()
 void dytMainW::OnChgRand()
 {
     int areaNr=ui->tw_Bereich->currentIndex();
-    m_frames[areaNr]=ui->le_rand->text().toDouble();
+    m_frames[areaNr]=ui->le_rand->text().toUInt();
     updateArea(false);
 }
 void dytMainW::OnChgAutoArea()
@@ -863,13 +848,18 @@ void dytMainW::OnChgAutoArea()
     updateArea(false);
 
 }
-void dytMainW::OnLoadDyt()
+static QString dytDir[]={"",""};
+void dytMainW::OnLoadDyb()
 {
-    QString path= QFileDialog::getOpenFileName(this,tr("Lade dyt Files"),"",tr("DYT-Files(*.dyt)"));
+    int areaNr=ui->tw_Bereich->currentIndex();
+
+    QString path= QFileDialog::getOpenFileName(this,tr("Lade Bereich Files"),dytDir[areaNr],tr("Bereich-File (*.dyb);;DYT-File(*.dyt)"));
 
     if(!path.isEmpty())
     {
-        int areaNr=ui->tw_Bereich->currentIndex();
+        QFileInfo fi(path);
+        dytDir[areaNr]=fi.absolutePath();
+
         if(areaNr)
             loadDyt(path,DYT_ZOOM);
         else
@@ -880,13 +870,15 @@ void dytMainW::OnLoadDyt()
     }
 }
 
-void dytMainW::OnSaveDyt()
+void dytMainW::OnSaveDyb()
 {
-    QString path= QFileDialog::getSaveFileName(this,tr("Speicher dyt Files"),"",tr("DYT-Files(*.dyt)"));
+    int areaNr=ui->tw_Bereich->currentIndex()*2;
+    QString path= QFileDialog::getSaveFileName(this,tr("Speicher Bereich File"),dytDir[areaNr],tr("Bereich-Files(*.dyb)"));
 
     if(!path.isEmpty())
     {
         QFileInfo fi(path);
+        dytDir[areaNr]=fi.absolutePath();
         if(fi.exists())	// prüfen ob das File bereits besteht
         {
             QMessageBox::StandardButton overwrite;
@@ -903,7 +895,6 @@ void dytMainW::OnSaveDyt()
             fprintf(gDyt,"<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n");
             fprintf(gDyt,"<dyjtrack version=\"1.0\" creator=\"dyjtrack.exe - http://www.dimitri-junker.de/html/openstreetmap.html\">\n");
 
-            int areaNr=ui->tw_Bereich->currentIndex()*2;
 
             fprintf(gDyt,"\t<area>\n");
             fprintf(gDyt,"\t\t<auto>0</auto>\n");
@@ -922,12 +913,8 @@ void dytMainW::OnSaveDyt()
 
 void dytMainW::OnBbox()
 {
-    /*DYJ DYJTrack 2.06d Start*/
     QString url=OsmUrl+"bbox-tool/bbox.html";
     QDesktopServices::openUrl(QUrl(url) );
-    /*DYJ  Ende; alt:
-    QDesktopServices::openUrl(QUrl("http://www.oche.de/~junker/OSM/bbox-tool/bbox.html") );
-    */
     QMessageBox::StandardButton bbox;
     bbox = QMessageBox::question(nullptr, tr("Bereich wählen"), tr("Wähle Bereich in Browser-Fenster und kopiere das <bbox...> unten links in die Zwischenablage, dann klicke den Knopf 'OK'"),
                                   QMessageBox::Yes|QMessageBox::Cancel);
@@ -1010,18 +997,8 @@ bool dytMainW::loadDyt(const QString &path, int what)
     {
         QString sOpt,tmp;	//CHG: TAHO 2.10f DYJ
         xDyt.readValB(sOpt,sDyt,"options");
-        /*DYJ DYJTrack 2.07j Start*/
         if(sOpt.isEmpty())
             sOpt=sDyt;
-        /*DYJ  Ende; alt:
-        if(sOpt.isEmpty())
-        {
-            sOpt=sDyt;
-            m_opt.setRelPath(false);
-        }
-        else
-            m_opt.setRelPath(xDyt.readVal_intDef(sOpt,"relPath",0));
-        */
         QString lang="";
         if(xDyt.readValB(lang,sOpt,"language"))
         {
@@ -1051,11 +1028,9 @@ bool dytMainW::loadDyt(const QString &path, int what)
             }
          }
          m_opt.setAviMax(xDyt.readVal_dblDef(sOpt, "aviMaxLen", 2.));
-         ui->cbSortByDate->setChecked(xDyt.readVal_intDef(sOpt, "sortByDate", 1));   /*DYJ DYJTrack 2.06b */
-         //DYJ DYJTrack 2.06d Start
+         ui->cbSortByDate->setChecked(xDyt.readVal_intDef(sOpt, "sortByDate", 1));
          if(CXmlFile::readValB(tmp,sOpt,"OsmUrl") && !tmp.isEmpty())
              OsmUrl=tmp;
-         //DYJ  Ende;
 
     }
     if((what&DYT_FILES)!=0)
@@ -1064,8 +1039,8 @@ bool dytMainW::loadDyt(const QString &path, int what)
         xDyt.readValB(gpxfiles,sDyt,"gpxfiles");
         if(!gpxfiles.isEmpty())
         {
-            m_colDef_N=QColor::fromRgb(xDyt.readVal_intDef(gpxfiles,QString("color"),m_colDef_N.rgb()&0xffffff));
-            m_colDef_F=QColor::fromRgb(xDyt.readVal_intDef(gpxfiles,"colorF",m_colDef_F.rgb()&0xffffff));
+            m_colDef_N=QColor::fromRgb(QRgb(xDyt.readVal_intDef(gpxfiles,QString("color"),m_colDef_N.rgb()&0xffffff)));
+            m_colDef_F=QColor::fromRgb(QRgb(xDyt.readVal_intDef(gpxfiles,"colorF",m_colDef_F.rgb()&0xffffff)));
             QString gpxPath="",tmp,gpxRoute="";
             xDyt.readValB(tmp,sDyt,"timezone");
             QRegExp rx("([-+]?[0-9]+)");
@@ -1091,7 +1066,7 @@ bool dytMainW::loadDyt(const QString &path, int what)
             else
             {
                 ui->progressBar->setRange(0,anz_gpx);
-                ui->tl_action->setText(tr("Lade %n GPX-Dateie(n)",0,anz_gpx));
+                ui->tl_action->setText(tr("Lade %n GPX-Dateie(n)",nullptr,anz_gpx));
             }
 
             ui->tl_action->repaint();
@@ -1105,13 +1080,10 @@ bool dytMainW::loadDyt(const QString &path, int what)
 
                 if(xDyt.readValB(tmp,gpxfile,"path"))
                 {
-//DYJ DYJTrack 2.07j 	                    if(m_opt.getRelPath())
-//DYJ DYJTrack 2.07j 	                        gpxPath=CPath::absPath(tmp,gpxPath);
- //DYJ DYJTrack 2.07j 	                   else
                     gpxPath=tmp;
                     gpxRoute="";
                 }
-                else	/*DYJ 1.05b */
+                else
                 {
                     xDyt.readValB(gpxRoute,gpxfile,"route");
                     gpxPath="";
@@ -1120,7 +1092,6 @@ bool dytMainW::loadDyt(const QString &path, int what)
                 xDyt.readValB(name,gpxfile,"name");
                 int iCol=xDyt.readVal_intDef(gpxfile,"color",0x1000000);
                 TrackCol col;
-                /*DYJ DYJTrack 2.06c Start*/
                 switch(iCol)
                 {
                 case 0x1000000:
@@ -1136,17 +1107,9 @@ bool dytMainW::loadDyt(const QString &path, int what)
                     col.setCol(iCol);
                 }
 
-                /*DYJ  Ende; alt:
-                if(iCol!=0x1000000)
-                    col.setCol(iCol);
-                */
                 xDyt.readValB(tmp,gpxfile,"start");
                 QDateTime odt;
-                /*DYJ DYJTrack 2.03b Start*/
                 odt=QDateTime::fromString(tmp,"d.M.yyyy H:m:s");
-                /*DYJ  Ende; alt:
-                odt.fromString(tmp);
-                */
                 int rev=xDyt.readVal_intDef(gpxfile,"reverse",0);
                 if(!gpxPath.isEmpty())
                     addGpx(gpxPath,name,&col,odt,rev!=0);
@@ -1172,7 +1135,7 @@ bool dytMainW::loadDyt(const QString &path, int what)
             if(!areas[aNr].isEmpty())
             {
                 m_autoAreas[aNr]=xDyt.readVal_intDef(areas[aNr],"auto",1);
-                m_frames[aNr]=xDyt.readVal_intDef(areas[aNr],"frame",1);
+                m_frames[aNr]=static_cast<unsigned int>(xDyt.readVal_intDef(areas[aNr],"frame",1));
                 if(!m_autoAreas[aNr])
                 {
                     m_lat[2*aNr]=xDyt.readVal_dblDef(areas[aNr],"lat1",m_lat[2*aNr]);
@@ -1210,11 +1173,6 @@ bool dytMainW::loadDyt(const QString &path, int what)
                 m_htmlOpt.m_oplSrc=OL_URL;
             QString tmp;
             xDyt.readValB(tmp,htmlmap,"output");
-
-
-//DYJ DYJTrack 2.07j 	            if(m_opt.getRelPath())
-//DYJ DYJTrack 2.07j 	                m_htmlOpt.m_out=CPath::absPath(tmp,path);
-//DYJ DYJTrack 2.07j 	            else
             m_htmlOpt.m_out=tmp;
 
         }
@@ -1227,13 +1185,13 @@ bool dytMainW::loadDyt(const QString &path, int what)
         xDyt.readValB(avimap,sDyt,"avimap");
         if(!avimap.isEmpty())
         {
-            m_aviOpt.m_x=xDyt.readVal_intDef(avimap,"x",1920);
-            m_aviOpt.m_y=xDyt.readVal_intDef(avimap,"y",1080);
-            m_aviOpt.m_fps=xDyt.readVal_intDef(avimap,"fps",25);
+            m_aviOpt.m_x=static_cast<unsigned int>(xDyt.readVal_intDef(avimap,"x",1920));
+            m_aviOpt.m_y=static_cast<unsigned int>(xDyt.readVal_intDef(avimap,"y",1080));
+            m_aviOpt.m_fps=static_cast<unsigned int>(xDyt.readVal_intDef(avimap,"fps",25));
             for(int i=0;i<6;i++)
             {
                 QString tag=QString("time_%1").arg(i);
-                m_aviOpt.m_time[i]=xDyt.readVal_intDef(avimap,tag,m_aviOpt.m_time[i]);
+                m_aviOpt.m_time[i]=static_cast<unsigned int>(xDyt.readVal_intDef(avimap,tag,static_cast<int>(m_aviOpt.m_time[i])));
             }
             xDyt.readValB(m_aviOpt.m_source,avimap,"source");
 
@@ -1242,9 +1200,6 @@ bool dytMainW::loadDyt(const QString &path, int what)
                 CMapSrc::select(source);
             QString tmp;
             xDyt.readValB(tmp,avimap,"output");
-//DYJ DYJTrack 2.07j 	            if(m_opt.getRelPath())
-//DYJ DYJTrack 2.07j 	                m_aviOpt.m_out=CPath::absPath(tmp,path);
-//DYJ DYJTrack 2.07j 	            else
             m_aviOpt.m_out=tmp;
         }
 //Pictmap
@@ -1252,8 +1207,8 @@ bool dytMainW::loadDyt(const QString &path, int what)
         xDyt.readValB(pictmap,sDyt,"pictmap");
         if(!pictmap.isEmpty())
         {
-            m_pictOpt.m_x=xDyt.readVal_intDef(pictmap,"x",1920);
-            m_pictOpt.m_y=xDyt.readVal_intDef(pictmap,"y",1080);
+            m_pictOpt.m_x=static_cast<unsigned int>(xDyt.readVal_intDef(pictmap,"x",1920));
+            m_pictOpt.m_y=static_cast<unsigned int>(xDyt.readVal_intDef(pictmap,"y",1080));
             xDyt.readValB(m_pictOpt.m_source,pictmap,"source");
             int aktPos=0;
 
@@ -1261,9 +1216,6 @@ bool dytMainW::loadDyt(const QString &path, int what)
                 CMapSrc::select(source);
             QString tmp;
             xDyt.readValB(tmp,pictmap,"output");
-//DYJ DYJTrack 2.07j 	            if(m_opt.getRelPath())
-//DYJ DYJTrack 2.07j 	                m_pictOpt.m_out=CPath::absPath(tmp,path);
-//DYJ DYJTrack 2.07j 	            else
             m_pictOpt.m_out=tmp;
         }
     }
@@ -1287,10 +1239,9 @@ void dytMainW::saveDyt(QString path,QString *expDir)
         oDyt << "\t<options>\n";
         //:put here the abreviation of the new Language (for ex. en for english, fr for frensh, es for spanish,...
         oDyt << "\t\t<language>"<< tr("de") << "</language>\n";
-//DYJ DYJTrack 2.07j 	        oDyt << "\t\t<relPath>" <<  (m_opt.getRelPath() || (expDir != nullptr)) << "</relPath>\n";
         oDyt << "\t\t<aviMaxLen>" << m_opt.getAviMax() << "</aviMaxLen>\n";
-        oDyt << "\t\t<sortByDate>" << ui->cbSortByDate->isChecked() << "</sortByDate>\n";   /*DYJ DYJTrack 2.06b */
-        oDyt << "\t\t<OsmUrl>" << OsmUrl << "</OsmUrl>\n";	//DYJ DYJTrack 2.06d
+        oDyt << "\t\t<sortByDate>" << ui->cbSortByDate->isChecked() << "</sortByDate>\n";
+        oDyt << "\t\t<OsmUrl>" << OsmUrl << "</OsmUrl>\n";
         oDyt << "\t</options>\n";
         oDyt << "\t<gpxfiles>\n";
         QString tmp;
@@ -1313,9 +1264,8 @@ void dytMainW::saveDyt(QString path,QString *expDir)
                 if(!pGi->m_route.isEmpty())
                     oDyt << "\t\t\t<route>" << pGi->m_route << "</route>\n";
                 if(!pGi->m_pfad.isEmpty())
-                    writeDytPathLine(oDyt,"\t\t\t<path>%s</path>\n", pGi->m_pfad,path,expDir);
+                    writeDytPathLine(oDyt,"\t\t\t<path>%1</path>\n", pGi->m_pfad,path,expDir);
                 oDyt << "\t\t\t<name>" << pGi->m_name << "</name>\n";
-                /*DYJ DYJTrack 2.06c Start*/
                 switch(pGi->m_col.m_useTrColSp)
                 {
                 case TC_AUTO:
@@ -1331,12 +1281,6 @@ void dytMainW::saveDyt(QString path,QString *expDir)
                     tmp.sprintf("\t\t\t<color>0x%.6X</color>\n",pGi->m_col.get_col(false,TC_RGB).rgb()&0xffffff);
                 }
 
-                /*DYJ  Ende; alt:
-                if(pGi->m_col.m_useDef)
-                    tmp.sprintf("\t\t\t<color>0x1000000</color>\n");
-                else
-                    tmp.sprintf("\t\t\t<color>0x%.6X</color>\n",pGi->m_col.get_col(false).rgb()&0xffffff);
-                */
                 oDyt << tmp;
                 oDyt << "\t\t\t<start>" << pGi->m_dateTime.toString("d.M.yyyy h:m:s") << "</start>\n";
                 oDyt << "\t\t\t<reverse>" << pGi->m_rev << "</reverse>\n";
@@ -1375,8 +1319,8 @@ void dytMainW::saveDyt(QString path,QString *expDir)
         oDyt << "\t\t<zoom>" << m_htmlOpt.m_zoom << "</zoom>\n";
         oDyt << "\t\t<title>" << m_htmlOpt.m_title << "</title>\n";
         oDyt << "\t\t<descr>" << m_htmlOpt.m_descr << "</descr>\n";
-        writeDytPathLine(oDyt,"\t\t<template>%s</template>\n", m_htmlOpt.m_templ,path,expDir);
-        writeDytPathLine(oDyt,"\t\t<output>%s</output>\n", m_htmlOpt.m_out,path);
+        writeDytPathLine(oDyt,"\t\t<template>%1</template>\n", m_htmlOpt.m_templ,path,expDir);
+        writeDytPathLine(oDyt,"\t\t<output>%1</output>\n", m_htmlOpt.m_out,path);
         if(m_htmlOpt.m_oplSrc==OL_URL)
             oDyt << "\t\t<openlayer>" << m_htmlOpt.m_oplPath << "</openlayer>\n";
         else
@@ -1398,7 +1342,7 @@ void dytMainW::saveDyt(QString path,QString *expDir)
 
         CMapSrc::writeTahoSelected(oDyt,MAP_OVR,PIX_AVI);
 
-        writeDytPathLine(oDyt,"\t\t<output>%s</output>\n", m_aviOpt.m_out,path);
+        writeDytPathLine(oDyt,"\t\t<output>%1</output>\n", m_aviOpt.m_out,path);
         oDyt << "\t</avimap>\n";
 
         oDyt << "\t<pictmap>\n";
@@ -1411,7 +1355,7 @@ void dytMainW::saveDyt(QString path,QString *expDir)
 
         CMapSrc::writeTahoSelected(oDyt,MAP_OVR,PIX_PICT);
 
-        writeDytPathLine(oDyt,"\t\t<output>%s</output>\n", m_pictOpt.m_out,path);
+        writeDytPathLine(oDyt,"\t\t<output>%1</output>\n", m_pictOpt.m_out,path);
         oDyt << "\t</pictmap>\n";
 
         oDyt << "</dyjtrack>\n";
@@ -1453,17 +1397,17 @@ void dytMainW::writeDytPathLine(QTextStream &oDyt,QString format, QString qPfad,
 
             expFileC=pExpFile.makePath();
         }
-        txt.sprintf(format.toStdString().c_str(),CPath::relPath(expFileC,dytPfad).toStdString().c_str());
+        txt=QString(format).arg(CPath::relPath(expFileC,dytPfad));
+//        txt.sprintf(format.toStdString().c_str(),CPath::relPath(expFileC,dytPfad).toStdString().c_str());
     }
-//DYJ DYJTrack 2.07j 	    else if(m_opt.getRelPath())
-//DYJ DYJTrack 2.07j 	        txt.sprintf(format.toStdString().c_str(),CPath::relPath(qPfad,dytPfad).toStdString().c_str());
     else
-        txt.sprintf(format.toStdString().c_str(),qPfad.toStdString().c_str());
+        txt=QString(format).arg(qPfad);
+ //       txt.sprintf(format.toStdString().c_str(),qPfad.toStdString().c_str());
     oDyt << txt;
 }
 void dytMainW::on_actionBild_erstellen_triggered()
 {
-    CMakePix makePict;
+    CMakePix makePict(&m_log);
     makePict.m_anzFiles=m_anzFiles;
     for(int i=0;i<2;i++)
     {
@@ -1480,7 +1424,7 @@ void dytMainW::on_actionBild_erstellen_triggered()
 
 void dytMainW::on_actionFilm_erzeugen_triggered()
 {
-    CMakePix makeAvi;
+    CMakePix makeAvi(&m_log);
     makeAvi.m_anzFiles=m_anzFiles;
     for(int i=0;i<4;i++)
     {
@@ -1491,19 +1435,17 @@ void dytMainW::on_actionFilm_erzeugen_triggered()
     makeAvi.m_pFB=ui->filesListWidget;
     makeAvi.m_pOpt=&m_aviOpt;
     double maxAviLen = 1024. * 1024. * 1024. * m_opt.getAviMax();	// Umrechnung von GB in Bytes
-    makeAvi.m_maxAviLen = (qint64)maxAviLen;	/*DYJ 1.08a */
+    makeAvi.m_maxAviLen = qint64(maxAviLen);
     makeAvi.initDialog();
     makeAvi.exec();
 
 }
-/*DYJ DYJTrack 2.05b Start*/
 void dytMainW::on_actionNeues_Projekt_triggered()
 {
     OnDelAll();
     m_projectPath="";
     this->setWindowTitle(m_progName);
 }
-/*DYJ  Ende; */
 
 void dytMainW::on_actionProjekt_laden_triggered()
 {
@@ -1518,11 +1460,7 @@ void dytMainW::loadProject(bool add)
     QString pfad;
     if(m_projectPath.isEmpty())
     {
-        /*DYJ DYJTrack 2.07j Start*/
         QFileInfo fi(COsmOpt::m_persPath,T_SET);
-        /*DYJ  Ende; alt:
-        QFileInfo fi(m_opt.defPath(),T_SET);
-        */
         pfad=fi.filePath();
     }
     else
@@ -1541,31 +1479,14 @@ void dytMainW::loadProject(bool add)
     QString title;
     if (!add)
     {
-        /*DYJ DYJTrack 2.04a Start*/
-        /*DYJ DYJTrack 2.05a Start*/
         title = m_progName + " - " + pfad;
-        /*DYJ  Ende; alt:
-        title = m_progName + " - " + title;
-        */
-        /*DYJ  Ende; alt:
-        title=this->windowTitle();
-        int pos;
-        pos = title.lastIndexOf('-');
-        if (pos > -1)
-            title.remove(0, pos + 2);
-        title = path + " - " + title;
-        */
         this->setWindowTitle(title);
     }
 }
 
 void dytMainW::on_actionProjekt_speichern_triggered()
 {
-    /*DYJ DYJTrack 2.05a Start*/
     if(m_projectPath.isEmpty() || !m_projectPath.makePath(PATH_FILE).compare(T_SET))
-    /*DYJ  Ende; alt:
-    if(m_projectPath.isEmpty())
-    */
         on_actionProjekt_speichern_unter_triggered();
     QString path=m_projectPath.makePath();
     saveDyt(path);
@@ -1574,23 +1495,15 @@ void dytMainW::on_actionProjekt_speichern_triggered()
 
 void dytMainW::on_actionProjekt_speichern_unter_triggered()
 {
-    QString pfad,file;
+    QFileInfo fi;
     if(m_projectPath.isEmpty())
     {
-        /*DYJ DYJTrack 2.07j Start*/
-        pfad=COsmOpt::m_persPath;
-        /*DYJ  Ende; alt:
-        pfad=m_opt.defPath();
-        */
-
-        file=T_SET;
+        QDir di(COsmOpt::m_persPath);
+        fi.setFile(di,T_SET);
     }
     else
-    {
-        pfad=m_projectPath.makePath(PATH_PATH);
-        file=m_projectPath.makePath(PATH_FILE);
-    }
-    QString path= QFileDialog::getSaveFileName(this,tr("Speicher Projekt"),"",tr("Projekt(*.dyt)"));
+        fi=m_projectPath.m_fInfo;
+    QString path= QFileDialog::getSaveFileName(this,tr("Speicher Projekt"),fi.filePath(),tr("Projekt(*.dyt)"));
     if(path.isNull())
         return;
     m_projectPath=path;
@@ -1630,8 +1543,19 @@ void dytMainW::on_actionProjekt_exportieren_triggered()
 
 }
 
+void dytMainW::closeEvent(QCloseEvent *event)
+{
+    on_actionBeenden_triggered();
+}
 void dytMainW::on_actionBeenden_triggered()
 {
+    QMessageBox::StandardButton saveIt;
+    saveIt = QMessageBox::question(nullptr, tr("Speichern?"), tr("Sollen die Einstellungen gespeichert werden?"),
+                                  QMessageBox::Yes|QMessageBox::No|QMessageBox::Cancel);
+    if(saveIt==QMessageBox::Yes)
+        on_actionProjekt_speichern_triggered();
+    else if(saveIt==QMessageBox::Cancel)
+        return;
     while(m_anzFiles)
         deleteGpx(0);
 
@@ -1655,15 +1579,7 @@ void dytMainW::on_actionHTML_erstellen_triggered()
 
 void dytMainW::on_actionOptionen_triggered()
 {
-//DYJ Taho 4.07d 	       m_opt.m_reloadSrc=FALSE;
     m_opt.exec();
-//DYJ Taho 4.07d 	       if(m_opt.m_reloadSrc)
-        /*DYJ DYJTrack 2.07j Start*/
-//DYJ Taho 4.07d 	           m_opt.loadTahoSrc( false);
-        /*DYJ  Ende; alt:
-        m_opt.loadTahoSrc(m_opt.getDefPathIsPrg());
-        */
-
 }
 /*** ------------------------------------------------------------------------ ***/
 /*	void dytMainW::on_actionInfo_triggered()                        			*/
@@ -1683,11 +1599,7 @@ void dytMainW::on_actionInfo_triggered()
 }
 void dytMainW::on_actionHilfe_triggered()
 {
-/*DYJ DYJTrack 2.03d Start*/
     QString url="file:./Docu/"+tr("liesmich.pdf");
-/*DYJ  Ende; alt:
-    QString url="file:///./Docu/"+tr("liesmich.pdf");
-*/
     QDesktopServices::openUrl(QUrl(url,QUrl::TolerantMode));
 
 }

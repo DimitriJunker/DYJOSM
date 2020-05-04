@@ -40,10 +40,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "..\..\build-dyjtrack-Desktop_Qt_5_12_3_MinGW_32_bit-Release\dyjtrack\release\dyjtrack.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\dyjtrack\Docu\?*.html"; DestDir: "{app}\Docu"; Flags: ignoreversion
 Source: "..\dyjtrack\Docu\?*.pdf"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "..\dyjtrack\dyjtrack_en.qm"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\dyjtrack\dyjtrack_fr.qm"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\myLibsQT\mylibs_fr.qm"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\myLibsQT\mylibs_en.qm"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\dyjtrack_en.qm"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\dyjtrack_fr.qm"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\build-dyjtrack-Desktop_Qt_5_12_3_MinGW_32_bit-Release\dyjtrack\release\?*.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\build-dyjtrack-Desktop_Qt_5_12_3_MinGW_32_bit-Release\dyjtrack\release\map.html"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\..\build-dyjtrack-Desktop_Qt_5_12_3_MinGW_32_bit-Release\dyjtrack\release\platforms\?*"; DestDir: "{app}\platforms"; Flags: ignoreversion  

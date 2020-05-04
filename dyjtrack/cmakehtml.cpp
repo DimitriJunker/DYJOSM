@@ -66,11 +66,7 @@ Q_DECLARE_METATYPE(CGPXInfo*)
 
 void CMakeHtml::onHtmlHilfe()
 {
-    /*DYJ DYJTrack 2.03d Start*/
         QString url="file:./Docu/"+tr("liesmich.pdf");
-    /*DYJ  Ende; alt:
-        QString url="file:///./Docu/"+tr("liesmich.pdf");
-    */
     QDesktopServices::openUrl(QUrl(url,QUrl::TolerantMode));
 
 }
@@ -379,11 +375,7 @@ void CMakeHtml::onMakeHtml()
         }
         if(!ziel.isEmpty())
         {
-            /*DYJ DYJTrack 2.06c Start*/
             unsigned int color=pGi->m_col.get_col(isFlug,pGi->m_col.m_useTrColSp).rgb()&0xffffff;
-            /*DYJ  Ende; alt:
-           unsigned int color=pGi->m_col.get_col(isFlug).rgb()&0xffffff;
-            */
 
            if (pGi->m_name.isEmpty())
                neu.sprintf(fstr.toStdString().c_str(), toHtml(sfName).toStdString().c_str(),  sfName.toStdString().c_str(), color);

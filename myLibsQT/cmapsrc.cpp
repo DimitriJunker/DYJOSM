@@ -301,6 +301,7 @@ bool CMapSrc::readTaho(CXmlFile *xTaho)
             QString sURL,sExt;
             xTaho->readValB(sURL,sSrc,"url");
             xTaho->readValB(sExt,sSrc,"ext");
+
             if(sExt.isEmpty())
                 sExt=".png";
             unsigned char maxzoom=255;

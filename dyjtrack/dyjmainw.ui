@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string notr="true">DYJ_Track 2.08</string>
+   <string notr="true">DYJ_Track 2.09</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QWidget" name="verticalLayoutWidget">
@@ -441,7 +441,7 @@
                </rect>
               </property>
               <property name="title">
-               <string>DYT-File</string>
+               <string>Bereich-File</string>
               </property>
               <widget class="QPushButton" name="pushButton_28">
                <property name="geometry">
@@ -958,7 +958,7 @@
    <sender>pushButton_28</sender>
    <signal>clicked()</signal>
    <receiver>dytMainW</receiver>
-   <slot>OnLoadDyt()</slot>
+   <slot>OnLoadDyb()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>568</x>
@@ -974,7 +974,7 @@
    <sender>pushButton_29</sender>
    <signal>clicked()</signal>
    <receiver>dytMainW</receiver>
-   <slot>OnSaveDyt()</slot>
+   <slot>OnSaveDyb()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>657</x>
@@ -1102,10 +1102,10 @@
   <slot>OnSelChgArea()</slot>
   <slot>OnChgRand()</slot>
   <slot>OnChgAutoArea()</slot>
-  <slot>OnLoadDyt()</slot>
-  <slot>OnSaveDyt()</slot>
   <slot>OnBbox()</slot>
   <slot>slot3()</slot>
   <slot>OnManChgArea()</slot>
+  <slot>OnLoadDyb()</slot>
+  <slot>OnSaveDyb()</slot>
  </slots>
 </ui>
