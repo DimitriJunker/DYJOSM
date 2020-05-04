@@ -23,11 +23,7 @@ CAVIFile::CAVIFile(QString *pFileName, int fps, qint64 maxAviLen)
 , m_m3uFile(nullptr)
 , m_pShowFile(nullptr)
 {
-    /*DYJ AVIFile 1.01a Start*/
     m_pafComp = nullptr;
-    /*DYJ  Ende; alt:
-    m_pafOut = nullptr;
-    */
     m_paviUnc = nullptr;
     m_paviComp = nullptr;
     m_maxFileLen = maxAviLen;
@@ -83,11 +79,7 @@ int CAVIFile::fileOpen()
             err = 1005;
     }
 
-    /*DYJ AVIFile 1.01a Start*/
     err=AVIFileOpen(&m_pafComp,fileName.toStdWString().c_str(), OF_CREATE | OF_WRITE, nullptr);
-    /*DYJ  Ende; alt:
-    err=AVIFileOpen(&m_pafOut,fileName.toStdWString().c_str(), OF_CREATE | OF_WRITE, nullptr);
-    */
     if (!err && m_m3uFile)
         fprintf(m_m3uFile, "%s\n", fileName.mid(posBs).toStdString().c_str());
 
@@ -105,14 +97,10 @@ int CAVIFile::fileInit(QImage & image, LPBITMAPINFOHEADER imHead)
     m_asi.fccHandler = 0;
     m_asi.dwScale = 1;
     m_asi.dwRate = m_fps;
-    m_asi.dwSuggestedBufferSize = 4*image.width()*image.height();
+    m_asi.dwSuggestedBufferSize = DWORD(4*image.width()*image.height());
     SetRect(&m_asi.rcFrame, 0, 0,		    // rectangle for stream
             image.width(),image.height());
-    /*DYJ AVIFile 1.01a Start*/
     err = AVIFileCreateStream(m_pafComp, &m_paviUnc, &m_asi);
-    /*DYJ  Ende; alt:
-    err = AVIFileCreateStream(m_pafOut, &m_paviUnc, &m_asi);
-    */
     if (!err)
     {
 //        static AVICOMPRESSOPTIONS lpOptionsSaved;
@@ -121,7 +109,7 @@ int CAVIFile::fileInit(QImage & image, LPBITMAPINFOHEADER imHead)
         if(m_fileCount==1)
         {
             memset(&m_lpOptions, 0, sizeof(m_lpOptions));
-            ok = AVISaveOptions(nullptr, ICMF_CHOOSE_KEYFRAME, 1, &m_paviUnc, (LPAVICOMPRESSOPTIONS FAR *) &plpOptions);
+            ok = AVISaveOptions(nullptr, ICMF_CHOOSE_KEYFRAME, 1, &m_paviUnc, (LPAVICOMPRESSOPTIONS *)&plpOptions);
         }
         if (!ok)
             err = 1000;
@@ -129,7 +117,7 @@ int CAVIFile::fileInit(QImage & image, LPBITMAPINFOHEADER imHead)
             err = AVIMakeCompressedStream(&m_paviComp, m_paviUnc, &m_lpOptions, nullptr);
     }
     if (!err)
-        err = AVIStreamSetFormat(m_paviComp, ICMF_CHOOSE_DATARATE | ICMF_CHOOSE_PREVIEW, imHead, imHead->biSize);
+        err = AVIStreamSetFormat(m_paviComp, ICMF_CHOOSE_DATARATE | ICMF_CHOOSE_PREVIEW, imHead, long(imHead->biSize));
     return err;
 }
 
@@ -148,7 +136,7 @@ int CAVIFile::writeFrame(QImage &imFrame,LPBITMAPINFOHEADER imHead)
     if (!err)
     {
         err = AVIStreamWrite(m_paviComp, m_frameNr++, 1, imFrame.mirrored().bits(),
-            imHead->biSizeImage, AVIIF_KEYFRAME, nullptr, &bytesW);
+            long(imHead->biSizeImage), AVIIF_KEYFRAME, nullptr, &bytesW);
         m_fileLen += bytesW;
     }
 
@@ -163,13 +151,8 @@ void CAVIFile::closeFile()
         AVIStreamRelease(m_paviComp);
     if (m_paviUnc)
         AVIStreamRelease(m_paviUnc);
-    /*DYJ AVIFile 1.01a Start*/
     if (m_pafComp)
         AVIFileRelease(m_pafComp);
-    /*DYJ  Ende; alt:
-    if (m_pafOut)
-        AVIFileRelease(m_pafOut);
-    */
 }
 
 

@@ -7,6 +7,7 @@
 #include <cmath>
 #include <QTimer>
 #include <QTextStream>
+#include <qnetworkreply.h>
 
 #define tilesize 256
 
@@ -187,20 +188,33 @@ void CPixmap::MakeMapTile(SDLM_DATA *data, CGeoRect *pgRect, bool cacheMap)
     bImg32.fill(Qt::white);
 
     QPainter gImg(&bImg32);
+    double progVal=0;
+    if(data->m_progD)
+        progVal=data->m_progD->value();
     if(lstX==m_widthX && lstY==m_widthY && lstX1==xtile1 && lstX2==xtile2&& lstY1==ytile1 && lstY2==ytile2)
+    {
         gImg.drawImage(0,0,lst);
+        if(data->m_progD)
+            data->m_progD->setValue(int(progVal)+data->m_progSteps);
+    }
     else
     {
+        double progStep=double(data->m_progSteps)/(xtile2-xtile1+1)/(ytile2-ytile1+1)/data->m_maps.size();
         for(int ov=0;ov<data->m_maps.size();ov++)	//CHG: TAHO 2.11a DYJ
         {
             QString tilePath;
             CMapSrc * map=static_cast<CMapSrc *>(data->m_maps[ov]);
             tilePath=QString("%1%2/").arg(data->m_outBas).arg(map->m_name);
             COsm osm(m_zoom,map->m_url,map->m_ext,tilePath,m_maxCacheDays);
+            //tmp%
+
             for(int x = xtile1; x <= xtile2; x++)	//Karte aus mehreren Tiles zusammensetzen.
             {
                 for(int y = ytile1; y <= ytile2; y++)
                 {
+                    progVal+=progStep;
+                    if(data->m_progD)
+                        data->m_progD->setValue(int(progVal));
                     bool draw=true;	//CHG: DYJTracker 1.01a DYJ
                     QString tile1Path,errTxt;
                     switch(osm.getsaveTileWithCache(x,y,tile1Path,&errTxt))
@@ -223,6 +237,9 @@ void CPixmap::MakeMapTile(SDLM_DATA *data, CGeoRect *pgRect, bool cacheMap)
                     case 3: //y ungültig ->schwarz
                         draw=false;
                         break;
+                    case QNetworkReply::AuthenticationRequiredError:
+                        return;
+
                     }
                     if(draw)
                     {
@@ -252,7 +269,7 @@ void CPixmap::MakeMapTile(SDLM_DATA *data, CGeoRect *pgRect, bool cacheMap)
     }
     if(data->m_progD)
     {
-        data->m_progD->setValue(data->m_progD->value()+1);
+//        data->m_progD->setValue(data->m_progD->value()+1);
         if(data->m_progD->wasCanceled())
         {
             data->errs|=ERR_PIXM_CANCEL;

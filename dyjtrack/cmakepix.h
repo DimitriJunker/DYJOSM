@@ -6,10 +6,11 @@
 #include <qlistwidget.h>
 #include <windows.h>
 #include <QProgressDialog>
+#include <Logfile.h>
 
 #define T_NA "tna.png"
 
-extern QString OsmUrl;   //DYJ DYJTrack 2.06d
+extern QString OsmUrl;
 
 typedef struct
 {
@@ -34,8 +35,9 @@ class CMakePix : public QDialog
     Q_OBJECT
 
 public:
-    explicit CMakePix(QWidget *parent = 0);
+    explicit CMakePix(CLogfile *log=nullptr,QWidget *parent = nullptr);
     ~CMakePix();
+    CLogfile *m_log;
     SPixOpt * m_pOpt;
     QListWidget* m_pFB;
     double m_lat[4];
@@ -44,7 +46,7 @@ public:
     int m_anzFiles;
     void makePict();
     int makeAvi();
-    bool makeMapAndPtlist(QList<QPoint> &route,QPainter &paMap,QProgressDialog *prog, bool doInit=true);
+    bool makeMapAndPtlist(QList<QPoint> &route,QPainter &paMap,QProgressDialog *prog,int steps4Map=0, bool doInit=true);
     int GetEncoderClsid(const WCHAR *format, CLSID *pClsid);
     void addLine2route(QList<QPoint> &route,QPoint &start,QPoint &end,char **pkte);
     // maximale Länge eines Avi Files (def 2GB)
@@ -65,8 +67,8 @@ private slots:
     void on_buttonBox_accepted();
 
 private:
-    int loadBmMap(QPainter *paMap, QRect *qRect, QProgressDialog *pProg=nullptr,CGeoRect *area=nullptr, bool cacheMap=false);
-    int loadMap(QPainter *paMap,QRect *qRect,QProgressDialog *pProg=nullptr,CGeoRect *area=nullptr,bool cacheMap=false);
+    int loadBmMap(QPainter *paMap, QRect *qRect, QProgressDialog *pProg=nullptr,int progSteps=0,CGeoRect *area=nullptr, bool cacheMap=false);
+    int loadMap(QPainter *paMap,QRect *qRect,QProgressDialog *pProg=nullptr,int progSteps=0,CGeoRect *area=nullptr,bool cacheMap=false);
     void addGpx2PtList(QList<QPoint> &route,CGPXInfo *pGi, double subX,double subY,int *skal,int zoom,char **pkte);
     // aktuelle Länge des AVI Files
     qint64 m_aviLen;

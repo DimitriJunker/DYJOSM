@@ -29,10 +29,7 @@ protected:
     void changeEvent(QEvent *e);
 
 public slots:
-    //DYJ DYJTrack 2.07d    void OnExpSrc();
     void OnUpdSrc();
-//DYJ DYJTrack 2.07j       void OnNormal();
-//DYJ DYJTrack 2.07j    void OnUsb();
     void change_lang(QString lang);
 };
 

@@ -9,11 +9,7 @@ public:
     static QColor m_normal;
     static QColor m_flug;
     QColor m_col;
-    /*DYJ DYJTrack 2.06c Start*/
     TrackColSp m_useTrColSp;
-    /*DYJ  Ende; alt:
-    bool m_useDef;
-    */
     void setDef(QColor norm, QColor flug);
     void setCol(QColor col);
     void setCol(int col);   //SetRgb

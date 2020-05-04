@@ -17,8 +17,8 @@ public:
     QString m_templ;
     double m_lat;
     double m_lon;
-    int m_oplSrc;/*DYJ 1.04g */
-    QString m_oplPath;/*DYJ 1.04e */
+    int m_oplSrc;
+    QString m_oplPath;
 }SHtmlOpt;
 namespace Ui {
 class CMakeHtml;

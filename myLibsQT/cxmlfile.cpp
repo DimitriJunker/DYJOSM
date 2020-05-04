@@ -342,6 +342,7 @@ int CXmlFile::readOdsZeile(QStringList *zellen,int *start,int mode)
         while(readValB(zelle,zeile,"table:table-cell", &aktPosZ,&attr))
         {
             readValB(zelltxt,zelle,"text:p");
+            zelltxt.replace("<text:s/>","");
             if(mode==0 && zelltxt.left(1).compare("<")==0)
             {
                 QString tmp;

@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "DYJ-Track"
-#define MyAppVersion "2.08"
+#define MyAppVersion "2.09"
 #define MyAppPublisher "Dimitri Junker"
 #define MyAppURL "www.dimitri-junker.de/html/openstreetmap.html"
 #define MyAppExeName "DYJTrack.exe"
@@ -37,19 +37,19 @@ Name: "german"; MessagesFile: "compiler:Languages\German.isl"; LicenseFile: ..\d
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "..\..\build-dyjtrack-Desktop_Qt_5_11_3_MinGW_32bit-Release\dyjtrack\release\dyjtrack.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\build-dyjtrack-Desktop_Qt_5_12_3_MinGW_32_bit-Release\dyjtrack\release\dyjtrack.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\dyjtrack\Docu\?*.html"; DestDir: "{app}\Docu"; Flags: ignoreversion
 Source: "..\dyjtrack\Docu\?*.pdf"; DestDir: "{app}\Docu"; Flags: ignoreversion
-Source: "..\dyjtrack\dyjtrack_en.qm"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\dyjtrack\dyjtrack_fr.qm"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\..\build-dyjtrack-Desktop_Qt_5_11_3_MinGW_32bit-Release\dyjtrack\release\?*.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\..\build-dyjtrack-Desktop_Qt_5_11_3_MinGW_32bit-Release\dyjtrack\release\map.html"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\..\build-dyjtrack-Desktop_Qt_5_11_3_MinGW_32bit-Release\dyjtrack\release\platforms\?*"; DestDir: "{app}\platforms"; Flags: ignoreversion  
-Source: "..\..\build-dyjtrack-Desktop_Qt_5_11_3_MinGW_32bit-Release\dyjtrack\release\bearer\?*"; DestDir: "{app}\bearer"; Flags: ignoreversion
-Source: "..\..\build-dyjtrack-Desktop_Qt_5_11_3_MinGW_32bit-Release\dyjtrack\release\iconengines\?*"; DestDir: "{app}\iconengines"; Flags: ignoreversion
-Source: "..\..\build-dyjtrack-Desktop_Qt_5_11_3_MinGW_32bit-Release\dyjtrack\release\imageformats\?*"; DestDir: "{app}\imageformats"; Flags: ignoreversion
-Source: "..\..\build-dyjtrack-Desktop_Qt_5_11_3_MinGW_32bit-Release\dyjtrack\release\styles\?*"; DestDir: "{app}\styles"; Flags: ignoreversion
-Source: "..\..\build-dyjtrack-Desktop_Qt_5_11_3_MinGW_32bit-Release\dyjtrack\release\translations\?*"; DestDir: "{app}\translations"; Flags: ignoreversion
+Source: "..\dyjtrack_en.qm"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\dyjtrack_fr.qm"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\build-dyjtrack-Desktop_Qt_5_12_3_MinGW_32_bit-Release\dyjtrack\release\?*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\build-dyjtrack-Desktop_Qt_5_12_3_MinGW_32_bit-Release\dyjtrack\release\map.html"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\build-dyjtrack-Desktop_Qt_5_12_3_MinGW_32_bit-Release\dyjtrack\release\platforms\?*"; DestDir: "{app}\platforms"; Flags: ignoreversion  
+Source: "..\..\build-dyjtrack-Desktop_Qt_5_12_3_MinGW_32_bit-Release\dyjtrack\release\bearer\?*"; DestDir: "{app}\bearer"; Flags: ignoreversion
+Source: "..\..\build-dyjtrack-Desktop_Qt_5_12_3_MinGW_32_bit-Release\dyjtrack\release\iconengines\?*"; DestDir: "{app}\iconengines"; Flags: ignoreversion
+Source: "..\..\build-dyjtrack-Desktop_Qt_5_12_3_MinGW_32_bit-Release\dyjtrack\release\imageformats\?*"; DestDir: "{app}\imageformats"; Flags: ignoreversion
+Source: "..\..\build-dyjtrack-Desktop_Qt_5_12_3_MinGW_32_bit-Release\dyjtrack\release\styles\?*"; DestDir: "{app}\styles"; Flags: ignoreversion
+Source: "..\..\build-dyjtrack-Desktop_Qt_5_12_3_MinGW_32_bit-Release\dyjtrack\release\translations\?*"; DestDir: "{app}\translations"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

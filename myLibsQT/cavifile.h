@@ -31,7 +31,7 @@ public:
     qint64 m_maxFileLen;
     void closeFile();
     int m_fileCount;
-    int m_fps;
+    unsigned int m_fps;
     AVICOMPRESSOPTIONS m_lpOptions;
     // Der Teil vom File Öffnen der ein CDibDrow braucht
     int fileInit(QImage & image, LPBITMAPINFOHEADER imHead);

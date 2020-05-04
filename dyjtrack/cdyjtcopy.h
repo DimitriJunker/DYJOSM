@@ -19,7 +19,7 @@ public:
 public slots:
     void OnGpl();
     void OnDyj();
-    void OnOSMc();	//DYJ Taho 4.04c
+    void OnOSMc();
 protected:
     void changeEvent(QEvent *e);
 

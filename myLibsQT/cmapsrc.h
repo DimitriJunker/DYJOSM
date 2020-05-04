@@ -33,7 +33,7 @@ public:
     static QString m_mySrc;
     CMapSrc();
     static void writeTaho(QString path, bool onlyPriv);
-    static CMapSrc *initP(QString name, QString url, bool isPrivate, QString ext, int maxThreads, QString pref="", unsigned char maxZoom=255, int mapID=1, QString mapDefin="l");
+    static CMapSrc *initP(QString name, QString url,bool isPrivate, QString ext, int maxThreads, QString pref="", unsigned char maxZoom=255, int mapID=1, QString mapDefin="l");
     static CMapSrc *initV(QString name,QString url,bool isPrivate,unsigned char maxThreads,QString pref,int offset,double kSize,int mapsPF);
     bool hatUnbekannteID();
     bool m_useOvrs[2];

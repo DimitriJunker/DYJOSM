@@ -23,11 +23,12 @@
 Q_DECLARE_METATYPE(CGPXInfo*)
 Q_DECLARE_METATYPE(CMapSrc*)
 
-CMakePix::CMakePix(QWidget *parent) :
+CMakePix::CMakePix(CLogfile *log, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::CMakePix)
 {
     ui->setupUi(this);
+    m_log=log;
 }
 
 CMakePix::~CMakePix()
@@ -49,14 +50,12 @@ void CMakePix::OnPict()
     QString outFile=ui->l_aviOutp->text();
     QFileInfo fi(outFile);
     QDir dirH;
-    /*DYJ DYJTrack 2.07c Start*/
 
     CMapSrc *map;
     if((map=CMapSrc::lookup(CMapSrc::getSrc()))==nullptr)
         return;
     else if(map->hatUnbekannteID())
        return;
-    /*DYJ  Ende; */
     dirH.mkpath(fi.path());
     if(fi.exists())	// prüfen ob das File bereits besteht
     {
@@ -78,14 +77,12 @@ void CMakePix::OnAvi()
     QString outFile=ui->l_aviOutp->text();
     QFileInfo fi(outFile);
     QDir dirH;
-    /*DYJ DYJTrack 2.07c Start*/
 
     CMapSrc *map;
     if((map=CMapSrc::lookup(CMapSrc::getSrc()))==nullptr)
         return;
     else if(map->hatUnbekannteID())
        return;
-    /*DYJ  Ende; */
     dirH.mkpath(fi.path());
 //    CWnd* pWnd,*pCancel=GetDlgItem(IDCANCEL);
     int msgNr = 0;
@@ -133,15 +130,16 @@ void CMakePix::makePict()
 {
 //    MSG msg;
     m_onErrTile=OE_NUROK;
-    QProgressDialog progress(tr("Erstelle Bild..."), tr("Abbruch"), 0, m_anzFiles+5, this);
+//tmp%    QProgressDialog progress(tr("Erstelle Bild..."), tr("Abbruch"), 0, m_anzFiles+5, this);
+    QProgressDialog progress(tr("Erstelle Bild..."), tr("Abbruch"), 0, m_anzFiles+100, this);
     progress.setWindowModality(Qt::ApplicationModal);
     QRect qRect;
 
     int x=ui->le_aviX->text().toInt(),y= ui->le_aviY->text().toInt();
     QImage imMap(x, y,QImage::Format_RGB32);
     QPainter paMap(&imMap);
-    int zoom=loadBmMap(&paMap,&qRect,&progress);
-    progress.setValue(5);
+    int zoom=loadBmMap(&paMap,&qRect,&progress,100);
+//    progress.setValue(5);
     if(zoom<0)
         return;
     int i,maxLen=qMax(qRect.width(),qRect.height());
@@ -167,11 +165,7 @@ void CMakePix::makePict()
 
         QListWidgetItem *item=m_pFB->item(i);
         CGPXInfo *pGi=item->data(Qt::UserRole).value<CGPXInfo *>();
-        /*DYJ DYJTrack 2.06c Start*/
         QColor col=pGi->m_col.get_col(pGi->m_pfad.isEmpty(),pGi->m_col.m_useTrColSp);
-        /*DYJ  Ende; alt:
-        QColor col=pGi->m_col.get_col(pGi->m_pfad.isEmpty());
-        */
         QPen pen(col);
         pen.setWidth(ui->le_aviLineW->text().toInt());
         paMap.setPen(pen);
@@ -257,9 +251,9 @@ void CMakePix::initDialog()
 
 }
 
-int CMakePix::loadMap(QPainter *paMap,QRect *qRect,QProgressDialog *pProg,CGeoRect *area,bool cacheMap)
+int CMakePix::loadMap(QPainter *paMap,QRect *qRect,QProgressDialog *pProg,int progSteps,CGeoRect *area,bool cacheMap)
 {
-    int zoom=loadBmMap(paMap,qRect,pProg,area, cacheMap);
+    int zoom=loadBmMap(paMap,qRect,pProg,progSteps,area, cacheMap);
     if(zoom<0 )
         return -1;
 
@@ -295,7 +289,7 @@ int CMakePix::makeAvi()
     CAVIFile aviFile(&m_showFile,ui->le_aviFps->text().toInt(), m_maxAviLen);
 
     CGeoRect dummy;	//zur Initialisierung von loadMap
-    if (loadMap(&paMap, &qRect,nullptr, &dummy) == -1)
+    if (loadMap(&paMap, &qRect,nullptr,0, &dummy) == -1)
     {
         err = 1002;
         QMessageBox::warning(nullptr, tr("Fehler"),tr("Bereich ungültig!"),QMessageBox::Ok);
@@ -310,20 +304,25 @@ int CMakePix::makeAvi()
     QApplication::processEvents();
     if(!err)
     {
-        int frames=ui->le_aviT1->text().toInt()+ui->le_aviT2->text().toInt()+ui->le_aviT3->text().toInt()+ui->le_aviT4->text().toInt()+ui->le_aviT5->text().toInt()+ui->le_aviT6->text().toInt();
-        frames*=ui->le_aviFps->text().toInt();
-        progress.setMaximum(frames+m_anzFiles);
+        int progSteps=ui->le_aviT1->text().toInt()+ui->le_aviT2->text().toInt()+ui->le_aviT3->text().toInt()+ui->le_aviT4->text().toInt()+ui->le_aviT5->text().toInt()+ui->le_aviT6->text().toInt();
+        progSteps+=9*ui->le_aviT2->text().toInt();
+        progSteps*=ui->le_aviFps->text().toInt();
+        progSteps+=200;
+        progress.setMaximum(progSteps);
 
         //AVI-Zoom-Vorspann
+        if(m_log)
+            m_log->writeFLS("AVI-Zoom-Vorspann");
 
         if(ui->le_aviT1->text().toInt())
         {
-            if(loadMap(&paMap,&qRect,&progress,&zoomArea,TRUE)==-1)
+            if(loadMap(&paMap,&qRect,&progress,100,&zoomArea,TRUE)==-1)
                 err=1001;
             else
             {
                 progress.setLabelText(tr("Schreibe AVI-Zoom-Vorspann"));
                 int i;
+                iProg=100;
                 for (i = 0; i<(ui->le_aviT1->text().toInt()*ui->le_aviFps->text().toInt()) && !err; i++)
                 {
                     progress.setValue(iProg++);
@@ -337,6 +336,8 @@ int CMakePix::makeAvi()
     }
 
     // AVI-Zoom Hauptteil
+    if(m_log)
+        m_log->writeFLS("AVI-Zoom-Hauptteil");
 
     if(!err && ui->le_aviT2->text().toInt())
     {
@@ -380,27 +381,29 @@ int CMakePix::makeAvi()
             zoomArea.m_s=mPkt.m_lat-h/2;
             zoomArea.m_w=mPkt.m_lon-b/2;
             zoomArea.m_e=mPkt.m_lon+b/2;
-            if(loadMap(&paMap,&qRect,&progress,&zoomArea,TRUE)==-1)
+            if(loadMap(&paMap,&qRect,&progress,10,&zoomArea,TRUE)==-1)
             {
                 err=1001;
                 break;
             }
-            progress.setValue(iProg++);
             if (progress.wasCanceled())
                 err=1004;
             else
                 err = aviFile.writeFrame(imMap,pBMIH);
         }
     }
+    if(m_log)
+        m_log->writeFLS("AVI-Zoom-Nachspann");
+
     if(!err && (ui->le_aviT3->text().toInt()+ui->le_aviT4->text().toInt()+ui->le_aviT5->text().toInt()+ui->le_aviT6->text().toInt())>0)
     {
         QList<QPoint> route;
         bool ok;
         if((ui->le_aviT5->text().toInt()+ui->le_aviT6->text().toInt())>0)	//dann brauchen wir die Karte und die Route
-            ok=makeMapAndPtlist(route,paMap,&progress,FALSE);
+            ok=makeMapAndPtlist(route,paMap,&progress,100,FALSE);
         else							//dann nur die leere Karte
-            ok=(loadMap(&paMap,&qRect)!=-1);
-        iProg+=m_anzFiles;
+            ok=(loadMap(&paMap,&qRect,&progress,100)!=-1);
+        iProg=progress.value();
         if(ok)
         {
             unsigned int i, frames = (ui->le_aviT3->text().toUInt() + ui->le_aviT4->text().toUInt())*ui->le_aviFps->text().toUInt();
@@ -430,6 +433,8 @@ int CMakePix::makeAvi()
                 paMap.setRenderHint(QPainter::Antialiasing,true);
                 paMap.setPen(stift);
                 progress.setLabelText(tr("Schreibe AVI-Route:Hauptteil"));
+                if(m_log)
+                    m_log->writeFLS("AVI-Route:Hauptteil");
                 int aktPos = 0;
                 for(i=0;i<frames && !err;i++)
                 {
@@ -454,6 +459,8 @@ int CMakePix::makeAvi()
                         err = aviFile.writeFrame(imMap,pBMIH);
                 }
                 progress.setLabelText(tr("Schreibe AVI-Route:Nachspann"));
+                if(m_log)
+                    m_log->writeFLS("AVI-Route:Nachspann");
                 for (int f = 0; f<(ui->le_aviT6->text().toInt()*ui->le_aviFps->text().toInt()) && !err; f++)
                 {
                     progress.setValue(iProg++);
@@ -490,9 +497,9 @@ void CMakePix::OnGpx()
     QString outFile=ui->l_aviOutp->text();
     QFileInfo fi(outFile);
     QDir dir=fi.dir();
-    QString file=fi.baseName()+".dyt";
+    QString file=fi.baseName()+".dyb";
     fi.setFile(dir,file);
-    QString path= QFileDialog::getSaveFileName(this,tr("Speicher GPX"),fi.filePath(),tr("GPX-Files(*.gpx);;dyjtrack-File (*.dyt)"));
+    QString path= QFileDialog::getSaveFileName(this,tr("Speicher Bereich"),fi.filePath(),tr("GPX-Files(*.gpx);;Bereich-File (*.dyb)"));
     if(path.isEmpty())
         return;
     fi.setFile(path);
@@ -545,7 +552,7 @@ void CMakePix::OnGpx()
 
 }
 
-int CMakePix::loadBmMap(QPainter *paMap,QRect *qRect, QProgressDialog *pProg,CGeoRect *area,bool cacheMap)
+int CMakePix::loadBmMap(QPainter *paMap,QRect *qRect, QProgressDialog *pProg,int progSteps,CGeoRect *area,bool cacheMap)
 {
     double deg2rad=PI/180;
     double lat1,lat2,lon1,lon2;
@@ -580,6 +587,11 @@ int CMakePix::loadBmMap(QPainter *paMap,QRect *qRect, QProgressDialog *pProg,CGe
         if(lat1<-85.05)
             lat1=-85.05;
     }
+
+    CMapSrc *map;
+    if((map=CMapSrc::lookup(CMapSrc::getSrc()))==nullptr)
+        return -1;
+    // Pixelnummer im Zoom Level 0 als Double
     double dX1=(lon1+180)*256/360;
     double dX2=(lon2+180)*256/360;
     double slat=sin(lat1*deg2rad);
@@ -587,12 +599,9 @@ int CMakePix::loadBmMap(QPainter *paMap,QRect *qRect, QProgressDialog *pProg,CGe
            slat=sin(lat2*deg2rad);
     double dY2=128-log((1+slat)/(1-slat))/2*256/360/deg2rad;
 
-    CMapSrc *map;
-    if((map=CMapSrc::lookup(CMapSrc::getSrc()))==nullptr)
-        return -1;
 
     int sizeX=ui->le_aviX->text().toInt(),sizeY= ui->le_aviY->text().toInt();
-
+//Zoomlevel so lange erhöhen bis genug Pixel da sind
     while((dX2-dX1)<sizeX && (dY2-dY1)<sizeY && zoom<map->m_maxZoom)
     {
         dX1*=2;
@@ -617,10 +626,9 @@ int CMakePix::loadBmMap(QPainter *paMap,QRect *qRect, QProgressDialog *pProg,CGe
             dY1=0;
         dY2=dY1+hh+hh;
     }
-//	double faktor=sizeX/(dX2-dX1);
     int x1=static_cast<int>(dX1+.5),y1=static_cast<int>(dY1+.5),x2=static_cast<int>(dX2+.5),y2=static_cast<int>(dY2+.5);	//gerundet
     *qRect= QRect(x1,y1,x2-x1+1,y2-y1+1);
-    if(paMap)	// sosnt nur Umriß bestimmen
+    if(paMap)	// sonst nur Umriß bestimmen
     {
         int tx1=x1/256,tx2=x2/256,ty1=y1/256,ty2=y2/256;	//Tilenummern
         if(x1<0)
@@ -629,13 +637,14 @@ int CMakePix::loadBmMap(QPainter *paMap,QRect *qRect, QProgressDialog *pProg,CGe
             ty1--;
     //Karte laden
         SDLM_DATA data;
-        data.m_outBas="tmp/";
+        data.m_outBas=QDir::tempPath();
         QString tah=data.m_outBas+"tah/";
         QString out=data.m_outBas+"map/";
         QDir dirH;
         if(!dirH.mkpath(tah)||!dirH.mkpath(out))
         {
-            QMessageBox::warning(nullptr, tr("Fehler"),tr("Kann Ausgabeverzeichnis nicht erstellen!"),QMessageBox::Ok);
+            QString err=QString(tr("Kann Ausgabeverzeichnis: %1 nicht erstellen!")).arg(tah);
+            QMessageBox::warning(nullptr, tr("Fehler"),err,QMessageBox::Ok);
             return -1;
         }
         data.m_maps.insert(0,map);
@@ -650,7 +659,8 @@ int CMakePix::loadBmMap(QPainter *paMap,QRect *qRect, QProgressDialog *pProg,CGe
                 QString dir=QString("%1%2/").arg(data.m_outBas).arg(map->m_name);
                 if(!dirH.mkpath(dir))
                 {
-                    QMessageBox::warning(nullptr, tr("Fehler"),tr("Kann Ausgabeverzeichnis nicht erstellen!"),QMessageBox::Ok);
+                    QString err=QString(tr("Kann Ausgabeverzeichnis: %1 nicht erstellen!")).arg(dir);
+                    QMessageBox::warning(nullptr, tr("Fehler"),err,QMessageBox::Ok);
                     return -1;
                 }
 
@@ -663,25 +673,21 @@ int CMakePix::loadBmMap(QPainter *paMap,QRect *qRect, QProgressDialog *pProg,CGe
         data.m_errTxts.clear();
         data.m_tna=m_prgPath+T_NA;
         data.m_progD=pProg;
-        data.errs=0;        /*DYJ DYJTrack 2.02a */
+        data.m_progSteps=progSteps;
+        data.errs=0;
         QFileInfo fi(data.m_tna);
 
         if(!fi.exists())	// prüfen ob das File bereits besteht
-        /*DYJ DYJTrack 2.06d Start*/
         {
             QString url=OsmUrl+"taho/tna.png";
             urlDownload::downloadFile(url, data.m_tna);
         }
-        /*DYJ  Ende; alt:
-            urlDownload::downloadFile("http://www.oche.de/~junker/OSM/taho/tna.png", data.m_tna);
-        */
         data.m_bpp=2;
         QImage *pbMap1_1=nullptr;	// unscalierte Karte
         QRect ausschn(x1-tx1*256,y1-ty1*256,qRect->width(),qRect->height());
         QString outP=data.m_outBas+"map/";
         CPixmap pixm(zoom,tx1,ty1,tx2-tx1+1,ty2-ty1+1,outP,&pbMap1_1,ausschn,data.m_bpp);
-        pixm.m_maxCacheDays=data.m_maxCacheDays;/*DYJ DYJTrack 2.03a */
-/*DYJ DYJTrack 2.02a Start*/
+        pixm.m_maxCacheDays=data.m_maxCacheDays;
         pixm.MakeMapTile(&data,nullptr,cacheMap);
         if(data.errs &&m_onErrTile!=OE_IGN)
         {
@@ -691,8 +697,6 @@ int CMakePix::loadBmMap(QPainter *paMap,QRect *qRect, QProgressDialog *pProg,CGe
                 errTxt=tr("Mindestens ein Tile konnte nicht herruntergeladen werden.");
             else if((data.errs&ERR_PIXM_TILE_OLD)==ERR_PIXM_TILE_OLD)
                errTxt=tr("Mindestens ein Tile konnte nicht herruntergeladen werden, aber es gab noch eine alte Version.");
-//DYJ Taho 4.07f             else if((data.errs&(ERR_PIXM_TILE_MAPNIK|ERR_PIXM_TILE_MAPNIK_OLD))>0)
-//DYJ Taho 4.07f                errTxt=tr("Mindestens ein Tile konnte nicht herruntergeladen werden, es wurde die mapnik Version verwendet.");
             else if((data.errs&(ERR_PIXM_SAVE|ERR_PIXM_SAVE))>0)
                errTxt=tr("Konnte Karte nicht speichern.");
             else if((data.errs&ERR_PIXM_CANCEL)>0)
@@ -704,30 +708,6 @@ int CMakePix::loadBmMap(QPainter *paMap,QRect *qRect, QProgressDialog *pProg,CGe
             if((data.errs&ERR_PIXM_CANCEL)>0)
                 mb.addButton(QMessageBox::Abort);
             else if(m_onErrTile==OE_WEITER && (data.errs&ERR_PIXM_CANCEL)==0)
-/*DYJ  Ende; alt:
-        int errs=pixm.MakeMapTile(&data,nullptr,cacheMap);
-        if(errs &&m_onErrTile!=OE_IGN)
-        {
-            QString errTxt,detTxt="";
-
-            if((errs&ERR_PIXM_TILE)==ERR_PIXM_TILE)
-                errTxt=tr("Mindestens ein Tile konnte nicht herruntergeladen werden.");
-            else if((errs&ERR_PIXM_TILE_OLD)==ERR_PIXM_TILE_OLD)
-               errTxt=tr("Mindestens ein Tile konnte nicht herruntergeladen werden, aber es gab noch eine alte Version.");
-            else if((errs&(ERR_PIXM_TILE_MAPNIK|ERR_PIXM_TILE_MAPNIK_OLD))>0)
-               errTxt=tr("Mindestens ein Tile konnte nicht herruntergeladen werden, es wurde die mapnik Version verwendet.");
-            else if((errs&(ERR_PIXM_SAVE|ERR_PIXM_SAVE))>0)
-               errTxt=tr("Konnte Karte nicht speichern.");
-            else if((errs&ERR_PIXM_CANCEL)>0)
-               errTxt=tr("Abbruch durch User");
-            else
-               errTxt=tr("unbekannter Fehler");
-
-            QMessageBox mb(QMessageBox::Warning,tr("Karte laden"),errTxt);
-            if((errs&ERR_PIXM_CANCEL)>0)
-                mb.addButton(QMessageBox::Abort);
-            else if(m_onErrTile==OE_WEITER && (errs&ERR_PIXM_CANCEL)==0)
-*/
             {
                 mb.addButton(QMessageBox::Abort);
                 mb.addButton(QMessageBox::Ignore);
@@ -764,20 +744,16 @@ int CMakePix::loadBmMap(QPainter *paMap,QRect *qRect, QProgressDialog *pProg,CGe
 
 void CMakePix::OnHelp()
 {
-    /*DYJ DYJTrack 2.03d Start*/
         QString url="file:./Docu/"+tr("liesmich.pdf");
-    /*DYJ  Ende; alt:
-        QString url="file:///./Docu/"+tr("liesmich.pdf");
-    */
     QDesktopServices::openUrl(QUrl(url,QUrl::TolerantMode));
 
 }
 
-bool CMakePix::makeMapAndPtlist(QList<QPoint> &route,QPainter &paMap,QProgressDialog *pProg,bool doInit)
+bool CMakePix::makeMapAndPtlist(QList<QPoint> &route,QPainter &paMap,QProgressDialog *pProg,int steps4Map,bool doInit)
 {
     QRect qRect;
     int zoom;
-    if((zoom=loadMap(&paMap,&qRect,pProg,nullptr,doInit))==-1)
+    if((zoom=loadMap(&paMap,&qRect,pProg,steps4Map,nullptr,doInit))==-1)
         return FALSE;
 //	CListBox* pFB= (CListBox*)GetDlgItem(IDC_FILES);
     int i, maxLen=qMax(qRect.width(),qRect.height());
@@ -817,11 +793,7 @@ void CMakePix::addGpx2PtList(QList<QPoint> &route,CGPXInfo *pGi, double subX,dou
 {
     double deg2rad=acos(-1.)/180;
     int zoomF=1<<zoom;
-    /*DYJ DYJTrack 2.06c Start*/
     QPoint lst(-1,pGi->m_col.get_col(pGi->m_pfad.isEmpty(),pGi->m_col.m_useTrColSp).rgb()&0xffffff);
-    /*DYJ  Ende; alt:
-    QPoint lst(-1,pGi->m_col.get_col(pGi->m_pfad.isEmpty()).rgb()&0xffffff);
-    */
      double faktX=256./360.*zoomF;
     double faktY=-128./360.*zoomF/deg2rad;
     route.append(lst);	//Farbinfo

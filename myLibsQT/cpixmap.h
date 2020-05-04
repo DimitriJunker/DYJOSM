@@ -46,6 +46,7 @@ typedef struct
     QString m_packer;
     QString m_unGz;
     QProgressDialog *m_progD;
+    int m_progSteps;
     QString m_offDir;
 }SDLM_DATA;
 

@@ -25,33 +25,21 @@ void CGpxProper::init(CGPXInfo *gpxi,QColor colDefN,QColor colDefF)
     {									//Flug
         ui->l_GpxPath->setText(gpxi->m_route);
         m_colDef=colDefF;
-        /*DYJ DYJTrack 2.06c Start*/
         if(gpxi->m_col.m_useTrColSp==TC_AUTO)
             gpxi->m_col.m_useTrColSp=TC_FLUG;
         m_color=gpxi->m_col.get_col(true,gpxi->m_col.m_useTrColSp);
-        /*DYJ  Ende; alt:
-        m_color=gpxi->m_col.get_col(true);
-        */
     }
     else
     {									//normal
         ui->l_GpxPath->setText(gpxi->m_pfad);
         m_colDef=colDefN;
-        /*DYJ DYJTrack 2.06c Start*/
         if(gpxi->m_col.m_useTrColSp==TC_AUTO)
             gpxi->m_col.m_useTrColSp=TC_STD;
         m_color=gpxi->m_col.get_col(false,gpxi->m_col.m_useTrColSp);
-        /*DYJ  Ende; alt:
-        m_color=gpxi->m_col.get_col(false);
-        */
     }
-    /*DYJ DYJTrack 2.06c Start*/
     ui->rb_StdCol->setChecked(gpxi->m_col.m_useTrColSp==TC_STD);
     ui->rb_FlugCol->setChecked(gpxi->m_col.m_useTrColSp==TC_FLUG);
     ui->rb_col->setChecked(gpxi->m_col.m_useTrColSp==TC_RGB);
-    /*DYJ  Ende; alt:
-    ui->cb_DefCol->setChecked(gpxi->m_col.m_useDef);
-    */
     ui->pb_Col->setStyleSheet(bgcString(m_color));
     ui->dte_Start->setDateTime(gpxi->m_dateTime);
     OnDefColChg();
@@ -66,11 +54,7 @@ int CGpxProper::getVal(CGPXInfo *gpxi)
 {
     gpxi->m_name=ui->le_Name->text();
     gpxi->m_rev=ui->cb_Rev->isChecked();
-    /*DYJ DYJTrack 2.06c Start*/
     gpxi->m_col.setCol(ui->rb_StdCol->isChecked(),ui->rb_FlugCol->isChecked(),m_color);
-    /*DYJ  Ende; alt:
-    gpxi->m_col.setCol(ui->cb_DefCol->isChecked(),m_color);
-    */
 
     gpxi->m_dateTime=ui->dte_Start->dateTime();
     return retBut;
@@ -109,11 +93,7 @@ void CGpxProper::changeEvent(QEvent *e)
 }
 void CGpxProper::OnDefColChg()
 {
-    //DYJ DYJTrack 2.06c Start
     if(!ui->rb_col->isChecked())
-    /*DYJ  Ende; alt:
-    if(ui->cb_DefCol->isChecked())
-    */
     {
         ui->pb_Col->setStyleSheet(bgcString(m_colDef));
         ui->pb_Col->setDisabled(true);

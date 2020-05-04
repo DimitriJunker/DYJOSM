@@ -11,9 +11,6 @@ QT += concurrent
 
 TARGET = DyjTrack
 TEMPLATE = app
-TRANSLATIONS =dyjtrack_fr.ts\
-    dyjtrack_en.ts\
-    dyjtrack_xx.ts
 
 SOURCES += main.cpp\
     cmakehtml.cpp \

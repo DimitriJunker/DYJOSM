@@ -30,8 +30,8 @@ public:
     CPath();
     virtual ~CPath();
     CPath& operator=(const QString &quell);
-private:
     QFileInfo m_fInfo;
+private:
     bool hasDrive;
     //   QString m_drive,m_dir,m_fname,m_ext;
 //    char m_drive[_MAX_DRIVE];

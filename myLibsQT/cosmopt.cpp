@@ -7,7 +7,6 @@
 #include <qapplication.h>
 #include <qmessagebox.h>
 #include <qstandardpaths.h>
-#include <QFileDialog>
 #include <urldownload.h>
 #include <QDate>
 
